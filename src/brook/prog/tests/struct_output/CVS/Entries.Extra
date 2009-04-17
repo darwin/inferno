@@ -1,0 +1,5 @@
+/.cvsignore///
+/COPYRIGHT.txt///
+/Makefile///
+/struct_output.br///
+/struct_output.gold///

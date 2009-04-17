@@ -1,0 +1,4 @@
+built/accumulate.obj: accumulate.br
+built/accumulate.obj: built/accumulate.cpp
+built/accumulate.cpp: $(ROOTDIR)/bin/brcc$(BINSUFFIX)
+built/accumulate.cpp: accumulate.br

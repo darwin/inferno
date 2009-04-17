@@ -1,0 +1,15 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// main shader
+float4 main(
+            float4 T0 : TEX0
+            ) : COLOR
+{
+  return T0; // raystart.xyz, packed tri material coef
+}

@@ -1,0 +1,8 @@
+built/dx9iter.obj: ../../include/kerneldesc.hpp
+built/dx9iter.obj: ./dx9base.hpp
+built/dx9iter.obj: ./../logger.hpp
+built/dx9iter.obj: ./../profiler.hpp
+built/dx9iter.obj: ../../include/brt.hpp
+built/dx9iter.obj: dx9iter.cpp
+built/dx9iter.obj: ./dx9.hpp
+built/dx9iter.obj: ./../runtime.hpp

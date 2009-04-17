@@ -1,0 +1,124 @@
+#include "src/hack.h"
+#include "src/defines.h"
+#include "src/unhack.h"
+
+/////////////////////////////////////////////////////
+// custom external functions
+
+float3 voxel_addr(float3 p)
+{
+  float3 voxelsize = float3(VOXELSIZEX, VOXELSIZEY, VOXELSIZEZ);
+  return floor(p / voxelsize);
+}
+
+bool point_in_box(float3 boxa, float3 boxb, float3 p) 
+{
+  return all(boxa<=p && p<=boxb);
+}
+
+// returns (intersect, tmin, tmax)
+float3 intersect_box(float3 boxa, float3 boxb, float3 ro, float3 rd) 
+{
+  float tmin, tmax, tymin, tymax, tzmin, tzmax;
+
+  bool res = true;
+
+  float3 ird = 1 / rd;
+
+  if (ird.x >= 0) 
+  {
+    tmin = (boxa.x - ro.x) * ird.x;
+    tmax = (boxb.x - ro.x) * ird.x;
+  }
+  else 
+  {
+    tmin = (boxb.x - ro.x) * ird.x;
+    tmax = (boxa.x - ro.x) * ird.x;
+  }
+  if (ird.y >= 0) 
+  {
+    tymin = (boxa.y - ro.y) * ird.y;
+    tymax = (boxb.y - ro.y) * ird.y;
+  }
+  else 
+  {
+    tymin = (boxb.y - ro.y) * ird.y;
+    tymax = (boxa.y - ro.y) * ird.y;
+  }
+  if ((tmin > tymax) || (tymin > tmax)) res = false;
+  if (tymin > tmin) tmin = tymin;
+  if (tymax < tmax) tmax = tymax;
+  if (ird.z >= 0) 
+  {
+    tzmin = (boxa.z - ro.z) * ird.z;
+    tzmax = (boxb.z - ro.z) * ird.z;
+  }
+  else 
+  {
+    tzmin = (boxb.z - ro.z) * ird.z;
+    tzmax = (boxa.z - ro.z) * ird.z;
+  }
+  if ((tmin > tzmax) || (tzmin > tmax)) res = false;
+  if (tzmin > tmin) tmin = tzmin;
+  if (tzmax < tmax) tmax = tzmax;
+  
+  if (tmax<0) res = false;
+  if (tmin<0) tmin = 0;
+
+  if (res)
+    return float3(RAYSTATE_TRAVERSING, tmin, tmax);
+  else
+    return float3(RAYSTATE_OUT, tmin, tmax);
+}
+/*
+// returns (time, tu, tv, hit)
+float4 intersect_triangle(float3 rorig, float3 rdir, float3 v0, float3 v1, float3 v2)
+{
+  float3 edge1 = v1 - v0;
+  float3 edge2 = v2 - v0;
+  float3 pvec = cross(rdir, edge2);
+  float det = dot(edge1, pvec);
+  float inv_det = 1.0f/det;
+  float3 tvec = rorig - v0;
+  float u = dot(tvec, pvec) * inv_det;
+  float3 qvec = cross(tvec, edge1);
+  float v = dot(rdir, qvec) * inv_det;
+  float t = dot(edge2, qvec) * inv_det;
+
+  bool hit = (u>=0)?true:false;
+  hit = (v>=0)?hit:false;
+  hit = (u+v<=1)?hit:false;
+  hit = (t >= 0.0)?hit:false;
+
+  float b = (hit)?1.0:0.0;
+  return float4(t, u, v, b);
+}
+/*
+bool select(bool p, bool a, bool b)
+{
+  return p?a:b;
+}
+*/
+// ro, rd are ray origin and direction
+// list pos contains the triangle list entry
+// h is current best hit
+bool intersect_triangle( float3 ro, float3 rd, float3 v0, float3 v1, float3 v2)
+{
+  float3 edge1 = v1 - v0;
+  float3 edge2 = v2 - v0;
+  float3 pvec = cross( rd, edge2 );
+  float det = dot( edge1, pvec );
+  float inv_det = 1.0/det;
+  float3 tvec = ro - v0;
+  float u = dot( tvec, pvec ) * inv_det;
+  float3 qvec = cross( tvec, edge1 );
+  float v = dot( rd, qvec ) * inv_det;
+  float t = dot( edge2, qvec ) * inv_det;
+  bool validhit = select( u >= 0.0, true, false );
+  validhit = select( v >= 0.0, validhit, false );
+  validhit = select( u+v <= 1.0, validhit, false );
+//  validhit = select( t < h[0], validhit, false );
+  validhit = select( t >= 0.0, validhit, false );
+  // return float4(t, u, v, validhit);
+  return validhit;
+}

@@ -1,0 +1,5 @@
+built/cpukernel.obj: ../../include/kerneldesc.hpp
+built/cpukernel.obj: cpukernel.cpp
+built/cpukernel.obj: ./cpu.hpp
+built/cpukernel.obj: ../../include/brt.hpp
+built/cpukernel.obj: ./../runtime.hpp

@@ -1,0 +1,12 @@
+built/dx9runtime.obj: ../../include/kerneldesc.hpp
+built/dx9runtime.obj: dx9runtime.cpp
+built/dx9runtime.obj: ./dx9texture.hpp
+built/dx9runtime.obj: ./dx9base.hpp
+built/dx9runtime.obj: ./dx9vertexshader.hpp
+built/dx9runtime.obj: ./dx9window.hpp
+built/dx9runtime.obj: ./../logger.hpp
+built/dx9runtime.obj: ./../profiler.hpp
+built/dx9runtime.obj: ./dx9pixelshader.hpp
+built/dx9runtime.obj: ../../include/brt.hpp
+built/dx9runtime.obj: ./dx9.hpp
+built/dx9runtime.obj: ./../runtime.hpp

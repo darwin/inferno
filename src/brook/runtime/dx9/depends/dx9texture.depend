@@ -1,0 +1,9 @@
+built/dx9texture.obj: ../../include/kerneldesc.hpp
+built/dx9texture.obj: ./dx9texture.hpp
+built/dx9texture.obj: ./dx9base.hpp
+built/dx9texture.obj: dx9texture.cpp
+built/dx9texture.obj: ./../logger.hpp
+built/dx9texture.obj: ./../profiler.hpp
+built/dx9texture.obj: ../../include/brt.hpp
+built/dx9texture.obj: ./dx9.hpp
+built/dx9texture.obj: ./../runtime.hpp

@@ -1,0 +1,82 @@
+			    Brook GPU Release Notes
+
+Release v0.4 (X/XX/04)
+
+   * Corrected Indexof precedence
+ 
+   * Allow casts in variable declarations
+
+   * Regression test failures summarized at end of make regression
+
+   * Fixed Variable Output bugs for 0-sized streams; improved search performance
+   * gcc-3.4 compliant
+
+Release v0.3 (1/29/04)
+
+   * Support typedef structures for stream types.
+
+   * Variable output streams supported.
+
+   * Kernels can now have more than one output stream per kernel.  
+   
+   * Fixed major NVIDIA memory leak bug.  Also fixed pbuffer copyteximage
+     slowdown.
+   
+   * Added warning messages when BRT_RUNTIME env not set.
+
+   * Added much more type checking
+
+   * Preliminary support for streams which are larger than dimensions
+     of a texture
+
+Release v0.2 (12/19/03)
+
+   * nv30gl backend compiles and runs on Linux.  Requires Linux cgc compiler
+     from NVIDIA and the latest drivers.
+
+   * Fixed nv30gl reduce to stream bug.  nv30gl now passes all regression 
+     tests
+
+   * BRCC properly handles missing cgc and fxc.
+     Produces reasonable error messages.
+
+   * Make system includes Default.mk which only compiles cpu backend.
+     Also tries to detect OS to choose the right configuration.  Builds 
+     safely on Darwin (OS X).
+
+
+Known Issues In BRCC
+
+   * There is very little type checking on stream arguments-- especially in
+     terms of length or dimensionality.  Passing a stream that's too small
+     to streamRead() or streamWrite() can cause all sorts of misbehaviors.
+
+   * Handling of floatN (float2, float3, float4) constructors is very
+     fragile.  They're only legal in three places: variable declaration
+     initializers, iterator stream constructors, and as bare statements.
+
+   * The preprocessor is not run on .br files, though it is run on the
+     resulting C++ output.  This can make it hard to use #defines and macros
+     in conjunction with kernels or stream constructs.
+   
+   * GatherOps and ScatterOps require the CPU runtime and programs using
+     them must compile for at least the CPU target.
+     
+Known Issues in the Runtimes
+
+   * In general, error conditions result in undefined behaviors and
+     incorrect results, not necessarily crashes or reported errors.
+   
+   * The dx9 runtime cannot allocate streams that are longer than 2048 in
+     any dimension or perform reductions on streams longer than 1024 in any
+     dimension.
+
+   * The cpu runtime only supports a subset of the builtin Cg / HLSL
+     functions.
+
+
+Revision History
+
+12/16/03:  Initial Beta Release
+
+12/19/03:  Added Linux/BRCC fixes/Makefile improvements/nv30gl bug fixes

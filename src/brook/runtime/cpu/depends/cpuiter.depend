@@ -1,0 +1,5 @@
+built/cpuiter.obj: ../../include/kerneldesc.hpp
+built/cpuiter.obj: cpuiter.cpp
+built/cpuiter.obj: ./cpu.hpp
+built/cpuiter.obj: ../../include/brt.hpp
+built/cpuiter.obj: ./../runtime.hpp

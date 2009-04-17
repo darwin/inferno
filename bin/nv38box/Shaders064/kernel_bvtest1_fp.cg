@@ -1,0 +1,84 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+float intersect_box(float3 boxa, float3 boxb, float3 ro, float3 rd) 
+{
+  float tmin, tmax, tymin, tymax, tzmin, tzmax;
+
+  bool res = true;
+
+  float3 ird = 1 / rd;
+
+  if (ird.x >= 0) 
+  {
+    tmin = (boxa.x - ro.x) * ird.x;
+    tmax = (boxb.x - ro.x) * ird.x;
+  }
+  else 
+  {
+    tmin = (boxb.x - ro.x) * ird.x;
+    tmax = (boxa.x - ro.x) * ird.x;
+  }
+  if (ird.y >= 0) 
+  {
+    tymin = (boxa.y - ro.y) * ird.y;
+    tymax = (boxb.y - ro.y) * ird.y;
+  }
+  else 
+  {
+    tymin = (boxb.y - ro.y) * ird.y;
+    tymax = (boxa.y - ro.y) * ird.y;
+  }
+  if ((tmin > tymax) || (tymin > tmax)) res = false;
+  if (tymin > tmin) tmin = tymin;
+  if (tymax < tmax) tmax = tymax;
+  if (ird.z >= 0) 
+  {
+    tzmin = (boxa.z - ro.z) * ird.z;
+    tzmax = (boxb.z - ro.z) * ird.z;
+  }
+  else 
+  {
+    tzmin = (boxb.z - ro.z) * ird.z;
+    tzmax = (boxa.z - ro.z) * ird.z;
+  }
+  if ((tmin > tzmax) || (tzmin > tmax)) res = false;
+  if (tzmin > tmin) tmin = tzmin;
+  if (tzmax < tmax) tmax = tzmax;
+
+  if (tmax<0) res = false;
+  if (tmin<0) tmin = 0;
+
+  return res;
+}
+
+float main(
+            float3 WPos : WPOS,
+            float2 Tex0 : TEX0,
+            float2 Tex1 : TEX1,
+            float2 Tex2 : TEX2,
+            uniform samplerRECT rays : TEXUNIT0,
+            uniform samplerRECT boxmins : TEXUNIT1,
+            uniform samplerRECT boxmaxs : TEXUNIT2
+            ) : COLOR
+{
+  //float2 boxuv = frac(WPos.xy / float2(RTRF_BVMAP_SX,RTRF_BVMAP_SY))*float2(RTRF_BVMAP_SX,RTRF_BVMAP_SY); // unoptimized compute
+  float2 boxuv = frac(Tex2)*float2(RTRF_BVMAP_SX,RTRF_BVMAP_SY); // optimized compute
+
+  float3 boxmin = texRECT(boxmins, float2(RTRF_BUFFER_BOUNDINGVOLUMESMIN_PX, RTRF_BUFFER_BOUNDINGVOLUMESMIN_PY)+boxuv).xyz;  
+  float3 boxmax = texRECT(boxmaxs, float2(RTRF_BUFFER_BOUNDINGVOLUMESMAX_PX, RTRF_BUFFER_BOUNDINGVOLUMESMAX_PY)+boxuv).xyz;  
+
+  float3 ro = texRECT(rays, Tex0).xyz;  
+  float3 rd = texRECT(rays, Tex1).xyz;  
+  float res = HARDDEPTH(0);
+  if (any(rd)) 
+  {
+    res = intersect_box(boxmin, boxmax, ro, rd)?HARDDEPTH(1):HARDDEPTH(0);
+  }
+  return res;
+}

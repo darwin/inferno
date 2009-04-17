@@ -1,0 +1,41 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// main shader
+float4 main(
+            float3 WPos : WPOS,
+            float4 Tex0 : TEX0,
+            float3 WNormalVec : TEX1,
+            float3 WLightVec1 : TEX2,
+            float3 WHalfVec1  : TEX3,
+            float3 WLightVec2 : TEX4,
+            float3 WHalfVec2  : TEX5,
+            float4 Color : COLOR0,
+            uniform sampler2D material : TEXUNIT0
+            ) : COLOR
+{
+  float4 Result = float4(0,0,0,0);
+  float Diffuse;
+  float Specular;
+  float4 Lighting;
+
+  // light 1
+  Diffuse = dot(WNormalVec, WLightVec1);
+  Specular = dot(WNormalVec, WHalfVec1);
+  Lighting = lit(Diffuse, Specular, RTRF_SPECULAR_POWER);
+  Result.rgb += Lighting.y * Color.xyz + Lighting.z * RTRF_SPECULAR_COLOR;
+
+  // light 2
+  Diffuse = dot(WNormalVec, WLightVec2);
+  Specular = dot(WNormalVec, WHalfVec2);
+  Lighting = lit(Diffuse, Specular, RTRF_SPECULAR_POWER);
+  Result.rgb += Lighting.y * Color.xyz + Lighting.z * RTRF_SPECULAR_COLOR;
+    
+  Result.a = 1.0f;
+  return Result;
+}

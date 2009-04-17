@@ -1,0 +1,63 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+// SUPPORTS ONLY 2 LIGHTS
+
+#include "constants.h"
+#include "defines.h"
+
+// define inputs from application
+struct appin
+{
+  float4 Position     : POSITION;
+  float3 Normal       : NORMAL;
+  float4 Color        : COLOR;
+  float4 Tex0         : TEXCOORD0;
+  float4 Tex1         : TEXCOORD1;
+};
+
+// define outputs from vertex shader
+struct vertout
+{
+  float4 Position     : POSITION;
+  float4 Tex0         : TEX0;
+  float3 WNormalVec   : TEX1;
+  float3 WLightVec1   : TEX2;
+  float3 WHalfVec1    : TEX3;
+  float3 WLightVec2   : TEX4;
+  float3 WHalfVec2    : TEX5;
+  float4 Color        : COLOR0;
+};
+
+vertout main(appin IN, 
+             uniform float4x4 ModelViewProj,
+             uniform float4x4 Model,
+             uniform float4x4 ModelIT,
+             uniform float3 WLightPos[2],
+             uniform float3 WEyeVec
+             )
+{
+  vertout OUT;
+
+  OUT.Position = mul(ModelViewProj, IN.Position);
+  OUT.Tex0 = IN.Tex0;
+
+  // compute lighting in world space
+  float3 WPosition = mul(Model, IN.Position).xyz;
+
+  OUT.WNormalVec = normalize(mul((float3x3)ModelIT, IN.Normal));
+
+  // light 1
+  OUT.WLightVec1 = normalize(WLightPos[0] - WPosition);
+  OUT.WHalfVec1 = normalize(OUT.WLightVec1 + WEyeVec);
+
+  // light 2
+  OUT.WLightVec2 = normalize(WLightPos[1] - WPosition);
+  OUT.WHalfVec2 = normalize(OUT.WLightVec2 + WEyeVec);
+
+  OUT.Color = IN.Color; // unused
+
+  return OUT;
+}

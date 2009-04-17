@@ -1,0 +1,19 @@
+/COPYRIGHT.txt/1.1/Sun Dec 14 11:41:56 2003//
+/Makefile/1.7/Wed Mar 24 03:29:28 2004//
+D/PMLSeg////
+D/benchmark////
+D/bitonic_sort////
+D/bsearch////
+D/conjugate_gradient////
+D/imageproc////
+D/particle_cloth////
+D/rapid_collide////
+D/raytracer////
+D/realfft////
+D/renderDX////
+D/spMatrixVec////
+D/subdivision////
+D/timing////
+D/timing_vout////
+D/volfire////
+D/volume_division////

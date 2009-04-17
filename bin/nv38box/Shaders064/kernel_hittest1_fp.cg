@@ -1,0 +1,20 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// main shader
+void main(
+            float3 WPos : WPOS,
+            float2 uv : TEX0,
+            uniform samplerRECT VBSpace,
+            out float color : COLOR,
+            out float depth : DEPTH
+            )
+{
+  depth = texRECT(VBSpace, uv).x;
+  color = depth;
+}

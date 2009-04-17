@@ -1,0 +1,10 @@
+/.cvsignore///
+/COPYRIGHT.txt///
+/Makefile///
+/benchmark.gold///
+/brook.br///
+/handvector.cpp///
+/handvector.hpp///
+/lin_time.cpp///
+/lin_time.h///
+/vanilla.cpp///

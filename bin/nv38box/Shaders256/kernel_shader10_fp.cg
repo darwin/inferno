@@ -1,0 +1,54 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+// BASIC + TEXTURED SECONDARY RAYS
+#include "constants.h"
+#include "defines.h"
+
+// main shader
+float4 main(
+            float3 WPos : WPOS,
+            float2 Tex0 : TEX0,
+            float2 Tex1 : TEX1,
+            uniform samplerRECT rays : TEXUNIT0,
+            uniform samplerRECT basic : TEXUNIT1,
+            uniform samplerRECT colors : TEXUNIT2,
+            uniform sampler2D material : TEXUNIT3,
+            uniform samplerRECT uvinfo : TEXUNIT4
+            ) : COLOR
+{
+  float4 ray = texRECT(rays, Tex0);  
+  float4 pixel = texRECT(basic, Tex1);
+
+  half2 tri_addr = unpack_2half(ray.w);
+  half2 tri_uv = unpack_2half(ray.z);
+  half2 parent_addr = unpack_2half(ray.y);
+
+  float4 uv = texRECT(uvinfo, tri_addr);
+  half2 uva = unpack_2half(uv.x);
+  half2 uvb = unpack_2half(uv.y);
+  half2 uvc = unpack_2half(uv.z);
+  half2 tri_coef = unpack_2half(uv.w); 
+  
+  float4 parent_uv = texRECT(uvinfo, parent_addr);
+  half2 parent_coef = unpack_2half(parent_uv.w); 
+
+  float3 barycoord = float3(tri_uv.x, tri_uv.y, 1-tri_uv.x-tri_uv.y);
+  float2 uvr = uva*barycoord.z + uvb*barycoord.x + uvc*barycoord.y;
+  float4 mat = tex2D(material, uvr);
+
+  float4 r = pixel; // basic shading
+
+  if (ray.x<CG_FLT_MAX) 
+  {
+    r *= parent_coef.x;
+    r += parent_coef.y * mat; // ray addition
+
+    if (tri_coef.y>=0.05) r = float4(1,0,0,0); // debug: show parts with incomplete bounces
+  }
+
+
+  return r;
+}

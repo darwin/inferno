@@ -1,0 +1,17 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// main shader
+float4 main(
+            float3 WPos : WPOS,
+            float3 Tex0 : TEX0
+            ) : COLOR
+{
+//  return float4(0,1,0,1);
+  return float4(Tex0, 0);
+}

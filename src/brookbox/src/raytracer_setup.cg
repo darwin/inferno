@@ -1,0 +1,857 @@
+#include "src/lib.cg"
+#ifdef USERECT
+#define _stype  samplerRECT
+#define _sfetch  texRECT
+#define __sample1(s,i) texRECT((s),float2(i,0))
+#define __sample2(s,i) texRECT((s),(i))
+#define SKIPSCALEBIAS
+#else
+#define _stype   sampler2D
+#define _sfetch  tex2D
+#define __sample1(s,i) tex2D((s),float2(i,0))
+#define __sample2(s,i) tex2D((s),(i))
+#endif
+
+#ifdef SKIPSCALEBIAS
+float __gatherindex1( float index, float4 scalebias ) { return index; }
+float2 __gatherindex2( float2 index, float4 scalebias ) { return index; }
+#define _computeindexof(a,b) float4(a, 0, 0)
+#else
+float __gatherindex1( float index, float4 scalebias ) { return index*scalebias.x+scalebias.z; }
+float2 __gatherindex2( float2 index, float4 scalebias ) { return index*scalebias.xy+scalebias.zw; }
+#define _computeindexof(a,b) (b)
+#endif
+
+float __fetch_float( _stype s, float i ) { return __sample1(s,i).x; }
+float __fetch_float( _stype s, float2 i ) { return __sample2(s,i).x; }
+float2 __fetch_float2( _stype s, float i ) { return __sample1(s,i).xy; }
+float2 __fetch_float2( _stype s, float2 i ) { return __sample2(s,i).xy; }
+float3 __fetch_float3( _stype s, float i ) { return __sample1(s,i).xyz; }
+float3 __fetch_float3( _stype s, float2 i ) { return __sample2(s,i).xyz; }
+float4 __fetch_float4( _stype s, float i ) { return __sample1(s,i).xyzw; }
+float4 __fetch_float4( _stype s, float2 i ) { return __sample2(s,i).xyzw; }
+
+
+float __gather_float( _stype s[1], float i ) { return __sample1(s[0],i).x; }
+float __gather_float( _stype s[1], float2 i ) { return __sample2(s[0],i).x; }
+float2 __gather_float2( _stype s[1], float i ) { return __sample1(s[0],i).xy; }
+float2 __gather_float2( _stype s[1], float2 i ) { return __sample2(s[0],i).xy; }
+float3 __gather_float3( _stype s[1], float i ) { return __sample1(s[0],i).xyz; }
+float3 __gather_float3( _stype s[1], float2 i ) { return __sample2(s[0],i).xyz; }
+float4 __gather_float4( _stype s[1], float i ) { return __sample1(s[0],i).xyzw; }
+float4 __gather_float4( _stype s[1], float2 i ) { return __sample2(s[0],i).xyzw; }
+
+
+typedef struct t_voxel_t {
+  float  trilist;
+} t_voxel;
+t_voxel __gather_t_voxel( _stype samplers[1], float index ) {
+t_voxel result;
+result.trilist = __fetch_float( samplers[0], index );
+	return result;
+}
+
+t_voxel __gather_t_voxel( _stype samplers[1], float2 index ) {
+t_voxel result;
+result.trilist = __fetch_float( samplers[0], index );
+	return result;
+}
+
+typedef struct t_trilist_t {
+  float  triid;
+} t_trilist;
+t_trilist __gather_t_trilist( _stype samplers[1], float index ) {
+t_trilist result;
+result.triid = __fetch_float( samplers[0], index );
+	return result;
+}
+
+t_trilist __gather_t_trilist( _stype samplers[1], float2 index ) {
+t_trilist result;
+result.triid = __fetch_float( samplers[0], index );
+	return result;
+}
+
+typedef struct t_triinfo_t {
+  float3  v0;
+  float3  v1;
+  float3  v2;
+  float3  n0;
+  float3  n1;
+  float3  n2;
+  float3  color;
+  float4  mat;
+} t_triinfo;
+t_triinfo __gather_t_triinfo( _stype samplers[8], float index ) {
+t_triinfo result;
+result.v0 = __fetch_float3( samplers[0], index );
+result.v1 = __fetch_float3( samplers[1], index );
+result.v2 = __fetch_float3( samplers[2], index );
+result.n0 = __fetch_float3( samplers[3], index );
+result.n1 = __fetch_float3( samplers[4], index );
+result.n2 = __fetch_float3( samplers[5], index );
+result.color = __fetch_float3( samplers[6], index );
+result.mat = __fetch_float4( samplers[7], index );
+	return result;
+}
+
+t_triinfo __gather_t_triinfo( _stype samplers[8], float2 index ) {
+t_triinfo result;
+result.v0 = __fetch_float3( samplers[0], index );
+result.v1 = __fetch_float3( samplers[1], index );
+result.v2 = __fetch_float3( samplers[2], index );
+result.n0 = __fetch_float3( samplers[3], index );
+result.n1 = __fetch_float3( samplers[4], index );
+result.n2 = __fetch_float3( samplers[5], index );
+result.color = __fetch_float3( samplers[6], index );
+result.mat = __fetch_float4( samplers[7], index );
+	return result;
+}
+
+typedef struct t_rayinfo_t {
+  float4  info;
+  float3  origin;
+  float3  direction;
+} t_rayinfo;
+t_rayinfo __gather_t_rayinfo( _stype samplers[3], float index ) {
+t_rayinfo result;
+result.info = __fetch_float4( samplers[0], index );
+result.origin = __fetch_float3( samplers[1], index );
+result.direction = __fetch_float3( samplers[2], index );
+	return result;
+}
+
+t_rayinfo __gather_t_rayinfo( _stype samplers[3], float2 index ) {
+t_rayinfo result;
+result.info = __fetch_float4( samplers[0], index );
+result.origin = __fetch_float3( samplers[1], index );
+result.direction = __fetch_float3( samplers[2], index );
+	return result;
+}
+
+typedef struct t_raystate_t {
+  float4  state;
+} t_raystate;
+t_raystate __gather_t_raystate( _stype samplers[1], float index ) {
+t_raystate result;
+result.state = __fetch_float4( samplers[0], index );
+	return result;
+}
+
+t_raystate __gather_t_raystate( _stype samplers[1], float2 index ) {
+t_raystate result;
+result.state = __fetch_float4( samplers[0], index );
+	return result;
+}
+
+typedef struct t_traverserstate_t {
+  float3  voxel;
+  float3  tmax;
+} t_traverserstate;
+t_traverserstate __gather_t_traverserstate( _stype samplers[2], float index ) {
+t_traverserstate result;
+result.voxel = __fetch_float3( samplers[0], index );
+result.tmax = __fetch_float3( samplers[1], index );
+	return result;
+}
+
+t_traverserstate __gather_t_traverserstate( _stype samplers[2], float2 index ) {
+t_traverserstate result;
+result.voxel = __fetch_float3( samplers[0], index );
+result.tmax = __fetch_float3( samplers[1], index );
+	return result;
+}
+
+typedef struct t_intersectorstate_t {
+  float3  tripos;
+} t_intersectorstate;
+t_intersectorstate __gather_t_intersectorstate( _stype samplers[1], float index ) {
+t_intersectorstate result;
+result.tripos = __fetch_float3( samplers[0], index );
+	return result;
+}
+
+t_intersectorstate __gather_t_intersectorstate( _stype samplers[1], float2 index ) {
+t_intersectorstate result;
+result.tripos = __fetch_float3( samplers[0], index );
+	return result;
+}
+
+typedef struct t_framebufferstate_t {
+  float3  color;
+} t_framebufferstate;
+t_framebufferstate __gather_t_framebufferstate( _stype samplers[1], float index ) {
+t_framebufferstate result;
+result.color = __fetch_float3( samplers[0], index );
+	return result;
+}
+
+t_framebufferstate __gather_t_framebufferstate( _stype samplers[1], float2 index ) {
+t_framebufferstate result;
+result.color = __fetch_float3( samplers[0], index );
+	return result;
+}
+
+typedef struct t_dispatcherstate_t {
+  float3  phase;
+  float4  hitinfo;
+  float3  hitdirection;
+  float3  hitnormal;
+  float4  hitmat;
+} t_dispatcherstate;
+t_dispatcherstate __gather_t_dispatcherstate( _stype samplers[5], float index ) {
+t_dispatcherstate result;
+result.phase = __fetch_float3( samplers[0], index );
+result.hitinfo = __fetch_float4( samplers[1], index );
+result.hitdirection = __fetch_float3( samplers[2], index );
+result.hitnormal = __fetch_float3( samplers[3], index );
+result.hitmat = __fetch_float4( samplers[4], index );
+	return result;
+}
+
+t_dispatcherstate __gather_t_dispatcherstate( _stype samplers[5], float2 index ) {
+t_dispatcherstate result;
+result.phase = __fetch_float3( samplers[0], index );
+result.hitinfo = __fetch_float4( samplers[1], index );
+result.hitdirection = __fetch_float3( samplers[2], index );
+result.hitnormal = __fetch_float3( samplers[3], index );
+result.hitmat = __fetch_float4( samplers[4], index );
+	return result;
+}
+
+typedef struct t_camera_t {
+  float3  pos;
+  float3  dir;
+  float2  fov;
+  float4  quat;
+} t_camera;
+t_camera __gather_t_camera( _stype samplers[4], float index ) {
+t_camera result;
+result.pos = __fetch_float3( samplers[0], index );
+result.dir = __fetch_float3( samplers[1], index );
+result.fov = __fetch_float2( samplers[2], index );
+result.quat = __fetch_float4( samplers[3], index );
+	return result;
+}
+
+t_camera __gather_t_camera( _stype samplers[4], float2 index ) {
+t_camera result;
+result.pos = __fetch_float3( samplers[0], index );
+result.dir = __fetch_float3( samplers[1], index );
+result.fov = __fetch_float2( samplers[2], index );
+result.quat = __fetch_float4( samplers[3], index );
+	return result;
+}
+
+typedef struct t_light_t {
+  float3  pos;
+  float3  color;
+} t_light;
+t_light __gather_t_light( _stype samplers[2], float index ) {
+t_light result;
+result.pos = __fetch_float3( samplers[0], index );
+result.color = __fetch_float3( samplers[1], index );
+	return result;
+}
+
+t_light __gather_t_light( _stype samplers[2], float2 index ) {
+t_light result;
+result.pos = __fetch_float3( samplers[0], index );
+result.color = __fetch_float3( samplers[1], index );
+	return result;
+}
+
+void setup (t_rayinfo  iri,
+             t_raystate  irs,
+             _stype scene_voxels[1],
+             float4 _const_scene_voxels_scalebias,
+             out t_raystate  ors,
+             out t_traverserstate  ots)
+{
+  float3  boxa = float3 (0,0,0);
+  float3  boxb = float3 (VOXELSX * VOXELSIZEX,VOXELSY * VOXELSIZEY,VOXELSZ * VOXELSIZEZ);
+  float3  voxelsize = float3 (VOXELSIZEX,VOXELSIZEY,VOXELSIZEZ);
+  float3  vboxa = float3 (0,0,0);
+  float3  vboxb = float3 (VOXELSX,VOXELSY,VOXELSZ);
+  float3  s = sign(iri.direction);
+  float4  o;
+  float3  point;
+  float3  t;
+  float3  nullray = float3 (0,0,0);
+
+  ors = irs;
+  if (ors.state.x == RAYSTATE_SETUP)
+  {
+    if (point_in_box(boxa,boxb,iri.origin))
+    {
+      ors.state.x = RAYSTATE_TRAVERSING;
+      point = iri.origin;
+    }
+
+    else
+    {
+      float3  ir = intersect_box(boxa,boxb,iri.origin,iri.direction);
+
+      ors.state.x = ir.x;
+      if (ir.x == RAYSTATE_SHADING)
+        ors.state.w = RAYSTATUS_OUT;
+      point = iri.origin + (1 + FPHAZARD_ENTERINGRAYSHIFT) * ir.y * iri.direction;
+    }
+
+    ots.voxel = voxel_addr(point);
+    t = frac(point);
+    if (s.x >= 0)
+    {
+      t.x = 1 - t.x;
+    }
+
+    if (s.y >= 0)
+    {
+      t.y = 1 - t.y;
+    }
+
+    if (s.z >= 0)
+    {
+      t.z = 1 - t.z;
+    }
+
+    ots.tmax = t / abs(iri.direction);
+    if ((float ) (ors.state.x) == RAYSTATE_TRAVERSING)
+    {
+      t_voxel  v;
+
+      v = __gather_t_voxel (scene_voxels,__gatherindex1((VOXELADDR(ots.voxel.x,ots.voxel.y,ots.voxel.z)).x, _const_scene_voxels_scalebias));
+      if (v.trilist > 0)
+      {
+        ors.state.x = RAYSTATE_INTERSECTING;
+        ors.state.y = v.trilist + 1;
+      }
+
+    }
+
+    if (all(iri.direction == nullray))
+    {
+      ors.state.x = RAYSTATE_DISPATCHING;
+    }
+
+  }
+
+}
+void traverser (t_rayinfo  iri,
+                 t_raystate  irs,
+                 t_traverserstate  its,
+                 _stype scene_voxels[1],
+                 float4 _const_scene_voxels_scalebias,
+                 out t_raystate  ors,
+                 out t_traverserstate  ots)
+{
+  float3  vboxa = float3 (0,0,0);
+  float3  vboxb = float3 (VOXELSX,VOXELSY,VOXELSZ);
+  float3  tmax = its.tmax;
+  float3  voxel = its.voxel;
+
+  ors = irs;
+  if (irs.state.x == RAYSTATE_TRAVERSING)
+  {
+    float3  z = float3 (iri.info.z,iri.info.z,iri.info.z);
+    float3  c = tmax >= z;
+
+    if (all(c))
+    {
+      ors.state.x = RAYSTATE_SHADING;
+      ors.state.w = RAYSTATUS_MISSED;
+    }
+
+    else
+    {
+      t_voxel  v;
+      float3  rstep = sign(iri.direction);
+      float3  rdelta = abs(1 / iri.direction);
+      float3  c1;
+      float3  c2;
+
+      if (tmax.x < tmax.y)
+      {
+        if (tmax.x < tmax.z)
+        {
+          voxel.x += rstep.x;
+          tmax.x += rdelta.x;
+        }
+
+        else
+        {
+          voxel.z += rstep.z;
+          tmax.z += rdelta.z;
+        }
+
+      }
+
+      else
+      {
+        if (tmax.y < tmax.z)
+        {
+          voxel.y += rstep.y;
+          tmax.y += rdelta.y;
+        }
+
+        else
+        {
+          voxel.z += rstep.z;
+          tmax.z += rdelta.z;
+        }
+
+      }
+
+      c1 = voxel >= vboxa;
+      c2 = voxel <= vboxb;
+      if (all(c1) && all(c2))
+      {
+        v = __gather_t_voxel (scene_voxels,__gatherindex1((VOXELADDR(voxel.x,voxel.y,voxel.z)).x, _const_scene_voxels_scalebias));
+        if (v.trilist > 0)
+        {
+          ors.state.x = RAYSTATE_INTERSECTING;
+          ors.state.y = v.trilist + 1;
+        }
+
+      }
+
+      else
+      {
+        ors.state.x = RAYSTATE_SHADING;
+        ors.state.w = RAYSTATUS_MISSED;
+      }
+
+    }
+
+  }
+
+  ots.tmax = tmax;
+  ots.voxel = voxel;
+}
+void intersector (t_rayinfo  iri,
+                   t_raystate  irs,
+                   t_intersectorstate  iis,
+                   t_traverserstate  its,
+                   _stype scene_trilist[1],
+                   float4 _const_scene_trilist_scalebias,
+                   _stype scene_triinfos[8],
+                   float4 _const_scene_triinfos_scalebias,
+                   out t_raystate  ors,
+                   out t_intersectorstate  ois)
+{
+  ors = irs;
+  ois = iis;
+  if (irs.state.x == RAYSTATE_INTERSECTING && irs.state.y > 1)
+  {
+    ois.tripos.x = irs.state.y - 1;
+    ois.tripos.y = CG_FLT_MAX;
+    ors.state.y = 0;
+    ors.state.w = 0;
+  }
+
+  if (irs.state.x == RAYSTATE_INTERSECTING)
+  {
+    t_trilist  tl = __gather_t_trilist (scene_trilist,__gatherindex1((ois.tripos.x).x, _const_scene_trilist_scalebias));
+
+    if (tl.triid >= 1)
+    {
+      t_triinfo  ti = __gather_t_triinfo (scene_triinfos,__gatherindex1((tl.triid).x, _const_scene_triinfos_scalebias));
+      float4  hit = intersect_triangle(iri.origin,iri.direction,ti.v0,ti.v1,ti.v2);
+
+      if (hit.w)
+      {
+        float3  hitpoint = iri.origin + iri.direction * hit.x;
+        float3  voxelsize = float3 (VOXELSIZEX,VOXELSIZEY,VOXELSIZEZ);
+        float3  voxela = its.voxel * voxelsize;
+        float3  voxelb = voxela + voxelsize;
+        float3  c1 = voxela <= hitpoint;
+        float3  c2 = hitpoint <= voxelb;
+
+        if (iri.info.z == CG_FLT_MAX)
+        {
+          if (hit.x < ois.tripos.y && all(c1) && all(c2) && hit.x <= iri.info.z)
+          {
+            ors.state.y = hit.y;
+            ors.state.z = hit.z;
+            ors.state.w = tl.triid;
+            ois.tripos.y = hit.x;
+          }
+
+        }
+
+        else
+        {
+          if (all(c1) && all(c2) && hit.x <= iri.info.z)
+          {
+            ors.state.z = ors.state.z * ti.mat.z;
+            if (ors.state.z < ALMOST_NOLIGHT)
+              ors.state.w = 1;
+          }
+
+        }
+
+      }
+
+      ois.tripos.x = ois.tripos.x + 1;
+    }
+
+    else
+    {
+      if (irs.state.w)
+      {
+        ors.state.x = RAYSTATE_SHADING;
+      }
+
+      else
+      {
+        ors.state.x = RAYSTATE_TRAVERSING;
+      }
+
+    }
+
+  }
+
+}
+void dispatcher (t_rayinfo  iri,
+                  t_raystate  irs,
+                  t_dispatcherstate  ids,
+                  _stype scene_triinfos[8],
+                  float4 _const_scene_triinfos_scalebias,
+                  _stype scene_lights[2],
+                  float4 _const_scene_lights_scalebias,
+                  out t_rayinfo  ori,
+                  out t_raystate  ors,
+                  out t_dispatcherstate  ods)
+{
+  ori = iri;
+  ors = irs;
+  ods = ids;
+  if (irs.state.x == RAYSTATE_DISPATCHING)
+  {
+    ors.state.x = RAYSTATE_SETUP;
+    if (ods.phase.y == 0)
+    {
+      if (ors.state.w <= 0)
+      {
+        ods.phase.y = NUMLIGHTS;
+      }
+
+      else
+      {
+        if (ods.phase.x == 0 || ods.phase.x == 1)
+        {
+          t_triinfo  ti;
+          float3  hit;
+          float3  barycoord;
+          float3  edge1;
+          float3  edge2;
+
+          ods.hitinfo.xyz = ors.state.wyz;
+          ods.hitdirection = -iri.direction;
+          ti = __gather_t_triinfo (scene_triinfos,__gatherindex1((ods.hitinfo.x).x, _const_scene_triinfos_scalebias));
+          ods.hitinfo.w = iri.info.w;
+          ods.hitmat = ti.mat;
+          edge1 = ti.v1 - ti.v0;
+          edge2 = ti.v2 - ti.v0;
+          hit = ti.v0 + ods.hitinfo.y * edge1 + ods.hitinfo.z * edge2;
+          barycoord = float3 (ods.hitinfo.y,ods.hitinfo.z,1.000000f - ods.hitinfo.y - ods.hitinfo.z);
+          ods.hitnormal = normalize(barycoord.x * ti.n1 + barycoord.y * ti.n2 + barycoord.z * ti.n0);
+          if (dot(ods.hitnormal,ods.hitdirection) < 0)
+          {
+            ods.hitnormal = -ods.hitnormal;
+          }
+
+        }
+
+      }
+
+    }
+
+    ods.phase.y += 1;
+    if (ods.phase.y >= NUMLIGHTS + 1)
+    {
+      ods.phase.x += 1;
+      ods.phase.y = 0;
+      if (ods.phase.x >= NUMSAMPLES)
+      {
+        ors.state.x = RAYSTATE_DONE;
+      }
+
+    }
+
+    {
+      t_triinfo  ti = __gather_t_triinfo (scene_triinfos,__gatherindex1((ods.hitinfo.x).x, _const_scene_triinfos_scalebias));
+      float3  edge1 = ti.v1 - ti.v0;
+      float3  edge2 = ti.v2 - ti.v0;
+      float3  hit = ti.v0 + ods.hitinfo.y * edge1 + ods.hitinfo.z * edge2;
+
+      if (ods.phase.y == 0)
+      {
+        float3  normal_vec = normalize(cross(edge1,edge2));
+
+        if (frac(ods.phase.x / 2.000000f) < 0.500000f)
+        {
+          ori.info.w = ods.hitinfo.w * ods.hitmat.y;
+          ori.info.z = CG_FLT_MAX;
+          ori.direction = normalize(reflect(-ods.hitdirection,ods.hitnormal));
+          ori.origin = hit + FPHAZARD_REFLECTEDRAYSHIFT * ori.direction;
+        }
+
+        else
+        {
+          ori.info.w = ods.hitinfo.w * ods.hitmat.z;
+          ori.info.z = CG_FLT_MAX;
+          ori.direction = normalize(refract(-ods.hitdirection,ods.hitnormal,ti.mat.w));
+          ori.origin = hit + FPHAZARD_REFLECTEDRAYSHIFT * ori.direction;
+        }
+
+      }
+
+      else
+      {
+        t_light  light = __gather_t_light (scene_lights,__gatherindex1((ods.phase.y - 1).x, _const_scene_lights_scalebias));
+        float3  light_vec = light.pos - hit;
+        float  side1 = dot(ods.hitnormal,ods.hitdirection);
+        float  side2 = dot(ods.hitnormal,normalize(light_vec));
+
+        if (sign(side1) == sign(side2))
+        {
+          ori.info.w = ods.hitinfo.w * ods.hitmat.x;
+          ori.info.z = length(light_vec);
+          ori.direction = normalize(light_vec);
+          ori.origin = hit + FPHAZARD_SHADOWRAYSHIFT * ori.direction;
+          ors.state.z = 1 / NUMLIGHTS;
+        }
+
+        else
+        {
+          ors.state.x = RAYSTATE_DISPATCHING;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+void shader_simple (t_rayinfo  iri,
+                     t_raystate  irs,
+                     _stype scene_triinfos[8],
+                     float4 _const_scene_triinfos_scalebias,
+                     out t_raystate  ors,
+                     out t_framebufferstate  ofs)
+{
+  ors = irs;
+  if (irs.state.x == RAYSTATE_SHADING)
+  {
+    t_triinfo  ti = __gather_t_triinfo (scene_triinfos,__gatherindex1((irs.state.w).x, _const_scene_triinfos_scalebias));
+
+    ofs.color = ti.color;
+    ors.state.x = RAYSTATE_DONE;
+  }
+
+  else
+  {
+    if (irs.state.x == RAYSTATE_OUT)
+    {
+      ofs.color = float3 (0,0,0);
+    }
+
+    else
+    {
+      ofs.color = float3 (0.200000f,0.200000f,0.200000f);
+    }
+
+  }
+
+}
+void shader_flat (t_rayinfo  iri,
+                   t_raystate  irs,
+                   _stype scene_triinfos[8],
+                   float4 _const_scene_triinfos_scalebias,
+                   _stype scene_lights[2],
+                   float4 _const_scene_lights_scalebias,
+                   out t_raystate  ors,
+                   out t_framebufferstate  ofs)
+{
+  ors = irs;
+  if (irs.state.x == RAYSTATE_SHADING)
+  {
+    t_triinfo  ti = __gather_t_triinfo (scene_triinfos,__gatherindex1((irs.state.w).x, _const_scene_triinfos_scalebias));
+    t_light  light = __gather_t_light (scene_lights,__gatherindex1((0).x, _const_scene_lights_scalebias));
+    float3  edge1 = ti.v1 - ti.v0;
+    float3  edge2 = ti.v2 - ti.v0;
+    float3  hit = ti.v0 + 0.500000f * edge1 + 0.500000f * edge2;
+    float3  normal_vec = normalize(cross(edge1,edge2));
+    float3  light_vec = normalize(light.pos - hit);
+    float3  eye_vec = normalize(iri.origin - hit);
+    float3  half_vec = normalize(light_vec + eye_vec);
+    float  diffuse = dot(normal_vec,light_vec);
+    float  specular = dot(normal_vec,half_vec);
+    float4  lighting = lit(diffuse,specular,32);
+    float3  white = float3 (1,1,1);
+
+    ofs.color = lighting.y * ti.color + lighting.z * white;
+    ors.state.x = RAYSTATE_DONE;
+  }
+
+  else
+  {
+    if (irs.state.x == RAYSTATE_OUT)
+    {
+      ofs.color = float3 (0,0,0);
+    }
+
+    else
+    {
+      ofs.color = float3 (0.200000f,0.200000f,0.200000f);
+    }
+
+  }
+
+}
+void shader_smooth (t_rayinfo  iri,
+                     t_raystate  irs,
+                     _stype scene_triinfos[8],
+                     float4 _const_scene_triinfos_scalebias,
+                     _stype scene_lights[2],
+                     float4 _const_scene_lights_scalebias,
+                     out t_raystate  ors,
+                     out t_framebufferstate  ofs)
+{
+  ors = irs;
+  if (irs.state.x == RAYSTATE_SHADING)
+  {
+    t_triinfo  ti = __gather_t_triinfo (scene_triinfos,__gatherindex1((irs.state.w).x, _const_scene_triinfos_scalebias));
+    t_light  light = __gather_t_light (scene_lights,__gatherindex1((0).x, _const_scene_lights_scalebias));
+    float3  edge1 = ti.v1 - ti.v0;
+    float3  edge2 = ti.v2 - ti.v0;
+    float3  hit = ti.v0 + irs.state.y * edge1 + irs.state.z * edge2;
+    float3  barycoord = float3 (irs.state.y,irs.state.z,1.000000f - irs.state.y - irs.state.z);
+    float3  normal_vec = normalize(barycoord.x * ti.n1 + barycoord.y * ti.n2 + barycoord.z * ti.n0);
+    float3  light_vec = normalize(light.pos - hit);
+    float3  eye_vec = normalize(iri.origin - hit);
+    float3  half_vec = normalize(light_vec + eye_vec);
+    float  diffuse = dot(normal_vec,light_vec);
+    float  specular = dot(normal_vec,half_vec);
+    float4  lighting = lit(diffuse,specular,SPECULAR_EXPONENT);
+    float3  white = float3 (1,1,1);
+
+    ofs.color = lighting.y * ti.color + lighting.z * white;
+    ors.state.x = RAYSTATE_DONE;
+  }
+
+  else
+  {
+    if (irs.state.x == RAYSTATE_OUT)
+    {
+      ofs.color = float3 (0,0,0);
+    }
+
+    else
+    {
+      ofs.color = float3 (0.200000f,0.200000f,0.200000f);
+    }
+
+  }
+
+}
+void shader (t_rayinfo  iri,
+              t_raystate  irs,
+              t_dispatcherstate  ids,
+              t_framebufferstate  ifs,
+              _stype scene_triinfos[8],
+              float4 _const_scene_triinfos_scalebias,
+              _stype scene_lights[2],
+              float4 _const_scene_lights_scalebias,
+              out t_raystate  ors,
+              out t_framebufferstate  ofs)
+{
+  ors = irs;
+  ofs = ifs;
+  if (irs.state.x == RAYSTATE_SHADING)
+  {
+    ors.state.x = RAYSTATE_DISPATCHING;
+    if (ids.phase.y == 0)
+    {
+      if (irs.state.w <= 0)
+      {
+        if (irs.state.w == RAYSTATUS_MISSED && ids.phase.x == 0)
+        {
+          ofs.color = float3 (0.200000f,0.200000f,0.200000f);
+        }
+
+      }
+
+    }
+
+    else
+    {
+      if (irs.state.w <= 0)
+      {
+        t_triinfo  ti = __gather_t_triinfo (scene_triinfos,__gatherindex1((ids.hitinfo.x).x, _const_scene_triinfos_scalebias));
+        t_light  light = __gather_t_light (scene_lights,__gatherindex1((ids.phase.y - 1).x, _const_scene_lights_scalebias));
+        float3  edge1 = ti.v1 - ti.v0;
+        float3  edge2 = ti.v2 - ti.v0;
+        float3  hit = ti.v0 + ids.hitinfo.y * edge1 + ids.hitinfo.z * edge2;
+        float3  normal_vec = ids.hitnormal;
+        float3  light_vec = normalize(light.pos - hit);
+        float3  eye_vec = ids.hitdirection;
+        float3  half_vec = normalize(light_vec + eye_vec);
+        float3  white = float3 (1,1,1);
+        float  diffuse;
+        float  specular;
+        float4  lighting;
+
+        diffuse = KD * dot(normal_vec,light_vec);
+        specular = KS * dot(normal_vec,half_vec);
+        lighting = irs.state.z * iri.info.w * lit(diffuse,specular,SPECULAR_EXPONENT);
+        if (ids.phase.x == 0)
+          ofs.color = ofs.color + lighting.y * ti.color + lighting.z * white;
+        else
+          ofs.color = ofs.color + lighting.y * ti.color;
+      }
+
+    }
+
+  }
+
+}
+void main (
+		uniform _stype __structsampler0_iri : register (s0),
+		uniform _stype __structsampler1_iri : register (s1),
+		uniform _stype __structsampler2_iri : register (s2),
+		float2 _tex_iri_pos : TEXCOORD0,
+		uniform _stype __structsampler0_irs : register (s3),
+		float2 _tex_irs_pos : TEXCOORD1,
+		uniform _stype scene_voxels[1] : register (s4),
+		uniform float4 __gatherconst_scene_voxels : register (c0),
+		#ifdef FXC
+		out float4 __output_2 : COLOR0,
+		#else
+		out float3 __output_2 : COLOR0,
+		#endif
+		uniform float4 __workspace    : register (c1)) {
+	t_rayinfo  iri;
+	t_raystate  irs;
+	t_raystate  ors;
+	t_traverserstate  ots;
+iri.info = __fetch_float4( __structsampler0_iri, _tex_iri_pos );
+iri.origin = __fetch_float3( __structsampler1_iri, _tex_iri_pos );
+iri.direction = __fetch_float3( __structsampler2_iri, _tex_iri_pos );
+irs.state = __fetch_float4( __structsampler0_irs, _tex_irs_pos );
+
+	setup(
+		iri,
+		irs,
+		scene_voxels, __gatherconst_scene_voxels,
+		ors,
+		ots );
+
+	#ifdef FXC
+	__output_2 = float4( ots.tmax, 0);
+	#else
+	__output_2 = ots.tmax;
+	#endif
+}

@@ -1,0 +1,27 @@
+/.cvsignore/1.1/Tue Mar  9 00:30:36 2004//
+/Makefile/1.5/Sat Apr 10 21:36:42 2004//
+/splitbuilder.cpp/1.9/Sun Apr  4 21:55:56 2004//
+/splitbuilder.h/1.8/Tue Mar 30 00:54:20 2004//
+/splitcompiler.cpp/1.7/Sat Apr 10 21:36:42 2004//
+/splitcompiler.h/1.10/Sat Apr 10 21:36:42 2004//
+/splitcompilercg.h/1.3/Sun Apr  4 21:55:56 2004//
+/splitcompilerhlsl.h/1.5/Sun Apr  4 21:55:56 2004//
+/splitconfiguration.cpp/1.2/Fri Apr  9 20:12:42 2004//
+/splitconfiguration.h/1.1/Sun Apr  4 21:55:56 2004//
+/splitdominator.cpp/1.9/Sat Apr 10 21:36:42 2004//
+/splitnode.cpp/1.16/Sat Apr 10 21:36:42 2004//
+/splitnode.h/1.18/Mon Apr 12 21:34:54 2004//
+/splitnodeset.cpp/1.1/Sat Apr 10 21:37:16 2004//
+/splitnodeset.h/1.1/Sat Apr 10 21:37:16 2004//
+/splitsubset.h/1.4/Sun Apr  4 21:55:56 2004//
+/splittechniquedesc.h/1.1/Sat Mar 13 01:47:44 2004//
+/splitting.h/1.5/Tue Mar 16 02:26:02 2004//
+/splittraversal.cpp/1.6/Sat Apr  3 20:26:04 2004//
+/splittraversal.h/1.8/Mon Apr  5 01:31:02 2004//
+/splittree.h/1.18/Mon Apr 12 21:34:56 2004//
+/splittypes.cpp/1.2/Sat Mar 13 01:47:44 2004//
+/splittypes.h/1.2/Wed Mar 10 23:13:12 2004//
+/splitcompilercg.cpp/1.4/Fri May 21 13:52:04 2004//
+/splitcompilerhlsl.cpp/1.12/Fri May 21 13:52:04 2004//
+/splittree.cpp/1.25/Tue May 25 14:30:26 2004//
+D

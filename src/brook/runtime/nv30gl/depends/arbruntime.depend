@@ -1,0 +1,8 @@
+built/arbruntime.obj: ../../include/kerneldesc.hpp
+built/arbruntime.obj: ./glruntime.hpp
+built/arbruntime.obj: ../../include/brt.hpp
+built/arbruntime.obj: ./wglext.h
+built/arbruntime.obj: arbruntime.cpp
+built/arbruntime.obj: ./arb.hpp
+built/arbruntime.obj: ./../runtime.hpp
+built/arbruntime.obj: ./nv30glext.h

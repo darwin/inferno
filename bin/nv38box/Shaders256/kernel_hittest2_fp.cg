@@ -1,0 +1,138 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// 2-sided
+// returns (time, tu, tv, hit)
+float4 intersect_triangle_2sided(float3 rorig, float3 rdir, float3 v0, float3 v1, float3 v2)
+{
+  float3 edge1 = v1 - v0;
+  float3 edge2 = v2 - v0;
+  float3 pvec = cross(rdir, edge2);
+  float det = dot(edge1, pvec);
+  float inv_det = 1.0f/det;
+  float3 tvec = rorig - v0;
+  float u = dot(tvec, pvec) * inv_det;
+  float3 qvec = cross(tvec, edge1);
+  float v = dot(rdir, qvec) * inv_det;
+  float t = dot(edge2, qvec) * inv_det;
+
+  bool hit = (u>=0)?true:false;
+  hit = (v>=0)?hit:false;
+  hit = (u+v<=1)?hit:false;
+  hit = (t >= 0)?hit:false;
+  //hit = (t <= maxtime)?hit:false;
+
+  float b = (hit)?1.0:0.0;
+  return float4(t, u, v, b);
+}
+
+// intersect triangle 1-sided
+// returns (time, tu, tv, hit)
+float4 intersect_triangle_1sided(float3 rorig, float3 rdir, float3 v0, float3 v1, float3 v2)
+{
+  float3 edge1 = v1 - v0;
+  float3 edge2 = v2 - v0;
+  float3 pvec = cross(rdir, edge2);
+  float det = dot(edge1, pvec);
+  float3 tvec = rorig - v0;  float u = dot(tvec, pvec);
+
+  float3 qvec = cross(tvec, edge1);
+  float v = dot(rdir, qvec);
+
+  float t = dot(edge2, qvec);
+
+  float inv_det = 1.0f/det;
+
+  bool hit = (u>=0)?true:false;
+  hit = (u<=det)?hit:false;
+  hit = (v>=0)?hit:false;
+  hit = (u+v<=det)?hit:false;
+  hit = (det>CG_FLT_EPSILON)?hit:false;
+
+  u *= inv_det;
+  v *= inv_det;
+  t *= inv_det;
+
+  hit = (t >= 0.0)?hit:false;
+  return float4(t, u, v, hit);
+}
+
+// intersect triangle 1-sided
+// returns (time, tu, tv, hit)
+float4 intersect_triangle_1sided_optimized(float3 rorig, float3 rdir, float3 v0, float3 v1, float3 v2)
+{
+  half3 edge1 = v1 - v0;
+  half3 edge2 = v2 - v0;
+  half3 pvec = cross(rdir, edge2);
+  half det = dot(edge1, pvec);
+  half3 tvec = rorig - v0;  half u = dot(tvec, pvec);
+
+  half3 qvec = cross(tvec, edge1);
+  half v = dot(rdir, qvec);
+
+  half t = dot(edge2, qvec);
+
+  half inv_det = 1.0f/det;
+
+  bool hit = (u>=0)?true:false;
+  hit = (u<=det)?hit:false;
+  hit = (v>=0)?hit:false;
+  hit = (u+v<=det)?hit:false;
+  hit = (det>CG_FLT_EPSILON)?hit:false;
+
+  u *= inv_det;
+  v *= inv_det;
+  t *= inv_det;
+
+  hit = (t > 0.5)?hit:false; // HACK
+  return float4(t, u, v, hit);
+}
+
+// main shader
+// optimized path
+float4 main(
+            float3 WPos : WPOS,
+            float2 Tex0 : TEX0,
+            float2 Tex1 : TEX1,
+            float2 Tex2 : TEX2,
+            uniform samplerRECT rays : TEXUNIT0,
+            uniform samplerRECT tris_posx : TEXUNIT1,
+            uniform samplerRECT tris_posy : TEXUNIT2,
+            uniform samplerRECT tris_posz : TEXUNIT3
+            ) : COLOR
+{
+  //float2 triuv = frac(WPos.xy / float2(RTRF_TRIMAP_SX,RTRF_TRIMAP_SY))*float2(RTRF_TRIMAP_SX,RTRF_TRIMAP_SY); // unoptimized compute
+  float2 tri_addr = frac(Tex2)*float2(RTRF_TRIMAP_SX,RTRF_TRIMAP_SY); // optimized compute
+
+  float3 va = texRECT(tris_posx, float2(RTRF_BUFFER_TRANSFORMEDAPOSITION_PX, RTRF_BUFFER_TRANSFORMEDAPOSITION_PY)+tri_addr).xyz;
+  float3 vb = texRECT(tris_posy, float2(RTRF_BUFFER_TRANSFORMEDBPOSITION_PX, RTRF_BUFFER_TRANSFORMEDBPOSITION_PY)+tri_addr).xyz;
+  float3 vc = texRECT(tris_posz, float2(RTRF_BUFFER_TRANSFORMEDCPOSITION_PX, RTRF_BUFFER_TRANSFORMEDCPOSITION_PY)+tri_addr).xyz;
+
+  float4 ro = texRECT(rays, Tex0);
+  float4 rd = texRECT(rays, Tex1);
+
+  float4 x = intersect_triangle_1sided(ro.xyz, rd.xyz, va, vb, vc);
+  float4 res;
+  if (x.w)
+  {
+    res.x = x.x;
+    res.w = pack_2half(tri_addr.xy);
+    res.z = pack_2half(x.yz);
+    //res.zw = tri_addr.xy;
+    res.y = ro.w; // packed source tri material coef
+
+    half2 h2 = unpack_2half(ro.w);
+    res.y = h2.x;
+
+  }
+  else
+  { 
+    res.x = CG_FLT_MAX;
+  }
+  return res;
+}

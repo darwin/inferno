@@ -1,0 +1,81 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// define inputs from application
+struct appin
+{
+  float4 Position     : POSITION;
+  float3 Normal       : NORMAL;
+  float4 Color        : COLOR;
+  float4 Tex0         : TEXCOORD0;
+  float4 Tex1         : TEXCOORD1;
+};
+
+// define outputs from vertex shader
+struct vertout
+{
+  float4 Position     : POSITION;
+  float4 Tex0         : TEX0;
+  float4 Color        : COLOR0;
+};
+
+vertout main(appin IN, 
+             uniform float4x4 ModelViewProj,
+             uniform float4x4 ModelViewT,
+             uniform float4x4 ModelI,
+             uniform float4 WLightPos[2]
+             )
+{
+  vertout OUT;
+
+  OUT.Position = mul(ModelViewProj, IN.Position);
+  OUT.Tex0 = IN.Tex0;
+
+  // compute lighting in object space
+  OUT.Color = float4(0,0,0,0);
+
+  float3 ONormalVec = IN.Normal; // normal is already in object space
+  float3 OEyeVec = mul(ModelViewT, float4(0.0, 0.0, 1.0, 0.0)).xyz; // transform eye vector to object space
+
+  // compute contributions from each light
+  for (int i=0; i<RTRF_MAX_LIGHTS; i++)
+  {
+    // compute current light position in object space
+    float3 OLightPos = mul(ModelI, WLightPos[i]).xyz;
+
+    // store normalized light vector in object space
+    float3 OLightVec = normalize(OLightPos - IN.Position.xyz);
+
+    // calculate half angle vector in object space
+    float3 OHalfVec = normalize(OLightVec + OEyeVec);
+
+    // calculate diffuse component
+    float Diffuse = dot(ONormalVec, OLightVec);
+
+    // calculate specular component
+    float Specular = dot(ONormalVec, OHalfVec);
+
+    // The lit() function is a handy function in the standard library that 
+    // can be used to accelerate your lighting calculations. 
+    //
+    // This function return a vector containing these values:
+    //     result.x = 1.0;  
+    //     result.y = max(diffuse, 0);
+    //     result.z = if (result.y > 0.0) then pow(specular, 32) else 0.0
+    //     result.w = 1.0;
+
+    // use the lit function to compute lighting vector
+    float4 Lighting = lit(Diffuse, Specular, RTRF_SPECULAR_POWER);
+
+    // combine diffuse and specular contributions and output final vertex color
+    OUT.Color.rgb += Lighting.y * IN.Color.xyz + Lighting.z * RTRF_SPECULAR_COLOR;
+  }
+
+  OUT.Color.a = 1.0;
+  return OUT;
+}

@@ -1,0 +1,5 @@
+/.cvsignore///
+/COPYRIGHT.txt///
+/Makefile///
+/gather_dependent.br///
+/gather_dependent.gold///

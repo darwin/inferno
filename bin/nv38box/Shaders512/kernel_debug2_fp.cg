@@ -1,0 +1,79 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+float intersect_box(float3 boxa, float3 boxb, float3 ro, float3 rd) 
+{
+  float tmin, tmax, tymin, tymax, tzmin, tzmax;
+
+  bool res = true;
+
+  float3 ird = 1 / rd;
+
+  if (ird.x >= 0) 
+  {
+    tmin = (boxa.x - ro.x) * ird.x;
+    tmax = (boxb.x - ro.x) * ird.x;
+  }
+  else 
+  {
+    tmin = (boxb.x - ro.x) * ird.x;
+    tmax = (boxa.x - ro.x) * ird.x;
+  }
+  if (ird.y >= 0) 
+  {
+    tymin = (boxa.y - ro.y) * ird.y;
+    tymax = (boxb.y - ro.y) * ird.y;
+  }
+  else 
+  {
+    tymin = (boxb.y - ro.y) * ird.y;
+    tymax = (boxa.y - ro.y) * ird.y;
+  }
+  if ((tmin > tymax) || (tymin > tmax)) res = false;
+  if (tymin > tmin) tmin = tymin;
+  if (tymax < tmax) tmax = tymax;
+  if (ird.z >= 0) 
+  {
+    tzmin = (boxa.z - ro.z) * ird.z;
+    tzmax = (boxb.z - ro.z) * ird.z;
+  }
+  else 
+  {
+    tzmin = (boxb.z - ro.z) * ird.z;
+    tzmax = (boxa.z - ro.z) * ird.z;
+  }
+  if ((tmin > tzmax) || (tzmin > tmax)) res = false;
+  if (tzmin > tmin) tmin = tzmin;
+  if (tzmax < tmax) tmax = tzmax;
+
+  if (tmax<0) res = false;
+  if (tmin<0) tmin = 0;
+
+  return res;
+}
+
+float4 main(
+            float3 WPos : WPOS
+            ) : COLOR
+{
+  float2 boxuv = frac(WPos.xy)*float2(RTRF_BVMAP_SX,RTRF_BVMAP_SY); // optimized compute
+
+  float3 boxmin = WPos;  
+  float3 boxmax = WPos;  
+
+  float3 ro = WPos;  
+  float3 rd = WPos;  
+  float res = 0;
+  float i = 0;
+  for (i=0; i<10; i++)
+  {
+    res += intersect_box(boxmin, boxmax, ro, rd)?0:1;
+    ro = ro + float3(1,1,1);
+  }
+  return float4(0,0,res,1); // res will be all the time 1 (green) because there are bad data for intersect_box
+}

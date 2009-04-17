@@ -1,0 +1,17 @@
+/.cvsignore///
+/COPYRIGHT.txt///
+/Makefile///
+/dx9.hpp///
+/dx9base.hpp///
+/dx9iter.cpp///
+/dx9pixelshader.cpp///
+/dx9pixelshader.hpp///
+/dx9vertexshader.cpp///
+/dx9vertexshader.hpp///
+/dx9window.cpp///
+/dx9window.hpp///
+/dx9kernel.cpp///
+/dx9runtime.cpp///
+/dx9stream.cpp///
+/dx9texture.cpp///
+/dx9texture.hpp///

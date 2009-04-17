@@ -1,0 +1,87 @@
+				 Brook GPU
+
+(Last Revised 19 December 2003)
+
+Hardware Prerequisites
+
+   * The DirectX 9 backend requires a recent ATI video card.  9800s and
+     9700s should both work.  Older cards may work.  The most important
+     requirement is support for floating point render targets.  The
+     DirectX 9 backend only compiles for Windows targets.
+
+   * The nv30 OpenGL backend requires (logically enough) an NVIDIA card that
+     is at least an nv30 (GeForceFX / QuadroFX or better).  The nv30 OpenGL 
+     backend compiles for both Windows and Linux targets.
+
+   * The CPU backend should run on any platform (even non-PC) where the
+     build environment works.
+
+
+Software Prerequisites
+
+   * The compiler and CPU runtime should build on any host with the standard
+     GNU toolchain:
+   	- make
+	- g++ & gcc
+	- flex
+	- bison
+	- bin-utils
+        - perl (for Makefile dependencies)
+
+   * Alternatively, running with the GPU runtimes requires the following:
+   	- Microsoft Visual C++ version 6 or 7 (preferably 7)
+          (cl.exe must execute from the command line)
+	- Microsoft DirectX 9 SDK
+	  (http://msdn.microsoft.com/library/default.asp?url=/downloads/list/directx.asp)
+	- NVIDIA's Cg Compiler (at least version 1.1)
+	  (http://developer.nvidia.com/object/cg_toolkit.html)
+	- Up-to-date ATI or NVIDIA video drivers
+	- The following GNU tools from cygwin (http://www.cygwin.com):
+		- make
+		- flex
+		- bison
+                - perl
+
+     BRCC will look for cgc and fxc (the HLSL compiler from the DirectX 9
+     SDK) in the path.  Following the default installations, cgc.exe is in
+     C:\Program Files\NVIDIA Corporation\Cg\bin and fxc.exe is in
+     C:\DX90SDK\Utilities.
+
+     Additionally, compiling the DirectX runtime requires your INCLUDE and
+     LIB paths include the DirectX 9 directories.  With the default
+     installations, these are C:\DX90SDK\Include and C:\DX90SDK\Lib.
+
+
+Compiling Brook GPU
+
+	Everything, including all the test programs and sample applications,
+   can be built by typing:
+
+   	make
+
+   at the top level.  You can run make from within any subdirectory to build
+   just that directory.
+
+
+Building And Running Brook Programs
+
+	There are some toy programs used for testing the compiler and runtime
+   in prog/tests/ and more interesting programs in prog/apps/ that can be
+   used as examples.  Basically, BRCC converts .br files into .cpp files
+   which are then compiled and linked against the runtime brook.lib.  At
+   runtime, brook.lib selects the backend based on the environment variable
+   BRT_RUNTIME.  The CPU backend is chosen by default and the values "dx9"
+   and 'nv30gl' select their respective backends.
+      
+
+For more information, read the Brook GPU project pages at:
+	
+	http://graphics.stanford.edu/projects/brookgpu/
+
+
+Revision History
+
+12/16/03:  Initial Beta release
+
+12/19/03:  Added text about OS for different backends
+           Linux support for nv30gl

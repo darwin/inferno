@@ -1,0 +1,8 @@
+built/nv30glkernel.obj: ../../include/kerneldesc.hpp
+built/nv30glkernel.obj: ./glruntime.hpp
+built/nv30glkernel.obj: nv30glkernel.cpp
+built/nv30glkernel.obj: ./nv30gl.hpp
+built/nv30glkernel.obj: ../../include/brt.hpp
+built/nv30glkernel.obj: ./wglext.h
+built/nv30glkernel.obj: ./../runtime.hpp
+built/nv30glkernel.obj: ./nv30glext.h

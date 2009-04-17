@@ -1,0 +1,9 @@
+built/dx9vertexshader.obj: ../../include/kerneldesc.hpp
+built/dx9vertexshader.obj: ./dx9base.hpp
+built/dx9vertexshader.obj: ./dx9vertexshader.hpp
+built/dx9vertexshader.obj: ./../logger.hpp
+built/dx9vertexshader.obj: ./../profiler.hpp
+built/dx9vertexshader.obj: ../../include/brt.hpp
+built/dx9vertexshader.obj: dx9vertexshader.cpp
+built/dx9vertexshader.obj: ./dx9.hpp
+built/dx9vertexshader.obj: ./../runtime.hpp

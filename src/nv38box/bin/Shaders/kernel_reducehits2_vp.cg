@@ -1,0 +1,32 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// define inputs from application
+struct appin
+{
+  float2 Position     : POSITION;
+  float  Tex0         : TEXCOORD0; // bounding test
+};
+
+// define outputs from vertex shader
+struct vertout
+{
+  float4 Position     : POSITION;
+};
+
+vertout main(appin IN)
+{
+  vertout OUT;
+
+  if (IN.Tex0.x<0.5)
+    OUT.Position = float4(IN.Position, 0, 1);
+  else
+    OUT.Position = float4(-10, -10, 0, 1);
+
+  return OUT;
+}

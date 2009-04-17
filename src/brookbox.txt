@@ -1,0 +1,18 @@
+BrookBox source package
+http://inferno.hildebrand.cz
+
+BrookBox is a Purcell-type raytracer implemented in BrookGPU language.
+
+Features of method:
+- simple triangular scenes in voxel grid 10x10x10
+- primary rays, secodary reflection and refraction rays, shadow rays
+- smooth shading
+
+Library dependencies:
+BrookGPU            http://graphics.stanford.edu/projects/brookgpu
+
+Included 3rd party sources:
+WildMagic Engine 2  http://www.magic-software.com/
+AABB-triangle overlap test code by Tomas Akenine-Möller
+
+Sources in brook directory is hacked version of BrookGPU from CVS ~ May 2004.

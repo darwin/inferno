@@ -1,0 +1,30 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// main shader
+void main(
+            float3 WPos : WPOS,
+            float2 t00  : TEX0,
+            float2 t01  : TEX1,
+            float2 t10  : TEX2,
+            float2 t11  : TEX3,
+            uniform samplerRECT data0,
+            uniform samplerRECT data1,
+            uniform samplerRECT data2,
+            uniform samplerRECT data3,
+            out float4 color : COLOR
+            )
+{
+  float4 v00 = texRECT(data0, t00);
+  float4 v01 = texRECT(data1, t01);
+  float4 r1 = v00.x<v01.x?v00:v01;
+  float4 v10 = texRECT(data2, t10);
+  float4 v11 = texRECT(data3, t11);
+  float4 r2 = v10.x<v11.x?v10:v11;
+  color = r1.x<r2.x?r1:r2;
+}

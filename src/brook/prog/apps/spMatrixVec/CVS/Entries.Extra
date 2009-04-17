@@ -1,0 +1,6 @@
+/.cvsignore///
+/COPYRIGHT.txt///
+/Makefile///
+/spMatrixVec.br///
+/spMatrixVec.gold///
+/spMatrixVec.txt///

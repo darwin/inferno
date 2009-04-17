@@ -1,0 +1,49 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// main shader
+void main(
+            float3 WPos : WPOS,
+            float2 t00  : TEX0,
+            float2 t01  : TEX1,
+            float2 t10  : TEX2,
+            float2 t11  : TEX3,
+            uniform samplerRECT data0,
+            uniform samplerRECT data1,
+            uniform samplerRECT data2,
+            uniform samplerRECT data3,
+            out float4 color : COLOR
+            )
+{
+  float all = true;
+
+  float4 v00 = texRECT(data0, t00);
+  float4 v01 = texRECT(data1, t01);
+  float4 v10 = texRECT(data2, t10);
+  float4 v11 = texRECT(data3, t11);
+
+  if (v00.w==0) 
+    v00.xyz = float3(CG_FLT_MAX, CG_FLT_MAX, CG_FLT_MAX);
+  else
+    all = false;
+  if (v01.w==0) 
+    v01.xyz = float3(CG_FLT_MAX, CG_FLT_MAX, CG_FLT_MAX);
+  else
+    all = false;
+  if (v10.w==0) 
+    v10.xyz = float3(CG_FLT_MAX, CG_FLT_MAX, CG_FLT_MAX);
+  else
+    all = false;
+  if (v11.w==0) 
+    v11.xyz = float3(CG_FLT_MAX, CG_FLT_MAX, CG_FLT_MAX);
+  else
+    all = false;
+  
+  color = min(min(v00, v01), min(v10, v11));
+  if (!all) color.w = 1;
+}

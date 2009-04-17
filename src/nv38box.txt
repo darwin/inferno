@@ -1,0 +1,39 @@
+NV38Box source package
+http://inferno.hildebrand.cz
+
+NV38Box is a "realtime" raytracer for NV38 or NV40.
+
+Features of RForce method:
+- dynamic GPU raytracer running in realtime for simple scenes and low resolutions
+- scene = 16 triangular objects per 64 triangles (total up to 1024 triangles)
+- using AABB as an acceleration structure
+- per pixel shading for both primary and secondary rays
+- no dynamic control flow as opposite to Purcell's method
+- hybrid algorithm (primary rays = classic rasterization)
+- nVidia only, NV38 path, NV40 path, brute force for comparison
+- implementation performs only secondary reflection rays, but method is more flexible in general
+- tested on WinXP, GeForce 5950 Ultra, ForceWare 62.20
+
+For documentation see docs
+
+Library dependencies:
+OpenGL          http://www.opengl.org
+Cg runtime      http://www.nvidia.com/cg
+GLUT32          http://www.opengl.org/resources/libraries/glut/glut_downloads.html?glut#first_hit
+GLEW            http://glew.sourceforge.net/
+Image Debuger   http://www.cs.unc.edu/~baxter/projects/imdebug/
+Corona          http://corona.sourceforge.net/
+ zlib           http://www.gzip.org/zlib/
+ libpng         http://www.libpng.org/pub/png/libpng.html
+ jpeglib        http://www.ijg.org/
+ libungif       http://libungif.sourceforge.net/doc/
+
+Included 3rd party sources:
+WildMagic Engine 2 - math classes     http://www.magic-software.com/
+NVIDIA manipulators - nvmanip         http://developer.nvidia.com/object/sdk_home.html
+NVIDIA glh                            http://developer.nvidia.com/object/sdk_home.html 
+
+Additional:
+cgcw            included in package (see cgcw)
+
+

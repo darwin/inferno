@@ -1,0 +1,5 @@
+/.cvsignore///
+/COPYRIGHT.txt///
+/Makefile///
+/convert_iter_to_stream.br///
+/convert_iter_to_stream.gold///

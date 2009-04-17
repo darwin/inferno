@@ -1,0 +1,7 @@
+built/gliter.obj: ../../include/kerneldesc.hpp
+built/gliter.obj: ./glruntime.hpp
+built/gliter.obj: ./wglext.h
+built/gliter.obj: ../../include/brt.hpp
+built/gliter.obj: ./nv30glext.h
+built/gliter.obj: ./../runtime.hpp
+built/gliter.obj: gliter.cpp

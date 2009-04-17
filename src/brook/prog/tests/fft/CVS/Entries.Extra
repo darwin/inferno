@@ -1,0 +1,13 @@
+/.cvsignore///
+/COPYRIGHT.txt///
+/Makefile///
+/bunny.ppm///
+/fft.br///
+/fft2d.br///
+/fftutil.cpp///
+/franklin.ppm///
+/main.h///
+/ppm.h///
+/qfft.br///
+/wfft.cpp///
+/wfft.h///

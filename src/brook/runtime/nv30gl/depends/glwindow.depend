@@ -1,0 +1,7 @@
+built/glwindow.obj: ../../include/kerneldesc.hpp
+built/glwindow.obj: ./glruntime.hpp
+built/glwindow.obj: ./wglext.h
+built/glwindow.obj: ../../include/brt.hpp
+built/glwindow.obj: glwindow.cpp
+built/glwindow.obj: ./nv30glext.h
+built/glwindow.obj: ./../runtime.hpp

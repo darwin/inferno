@@ -1,0 +1,7 @@
+built/glstream.obj: ../../include/kerneldesc.hpp
+built/glstream.obj: ./glruntime.hpp
+built/glstream.obj: ./wglext.h
+built/glstream.obj: ../../include/brt.hpp
+built/glstream.obj: ./nv30glext.h
+built/glstream.obj: ./../runtime.hpp
+built/glstream.obj: glstream.cpp

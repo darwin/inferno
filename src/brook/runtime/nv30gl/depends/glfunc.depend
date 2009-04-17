@@ -1,0 +1,7 @@
+built/glfunc.obj: glfunc.cpp
+built/glfunc.obj: ../../include/kerneldesc.hpp
+built/glfunc.obj: ./glruntime.hpp
+built/glfunc.obj: ./wglext.h
+built/glfunc.obj: ../../include/brt.hpp
+built/glfunc.obj: ./nv30glext.h
+built/glfunc.obj: ./../runtime.hpp

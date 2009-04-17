@@ -1,0 +1,148 @@
+NV38Box is a "realtime" raytracer for NV38 or NV40.
+
+Features of RForce method:
+- dynamic GPU raytracer running in realtime for simple scenes and low resolutions
+- scene = 16 triangular objects per 64 triangles (total up to 1024 triangles)
+- using AABB as an acceleration structure
+- per pixel shading for both primary and secondary rays
+- no dynamic control flow as opposite to Purcell's method
+- hybrid algorithm (primary rays = classic rasterization)
+- nVidia only, NV38 path, NV40 path, brute force for comparison
+- implementation performs only secondary reflection rays, but method is more flexible in general
+- tested on WinXP, GeForce 5950 Ultra, ForceWare 62.20
+
+You can execute:
+nv38box064.exe - raytracing in resolution  64x64
+nv38box128.exe - raytracing in resolution 128x128
+nv38box256.exe - raytracing in resolution 256x256
+nv38box512.exe - raytracing in resolution 512x512
+
+Controls:
+---------
+
+Object manipulation:
+          LEFT MOUSE BUTTON + MOUSE = rotation
+  CTRL  + LEFT MOUSE BUTTON + MOUSE = move in Z axis (or zoom)
+  SHIFT + LEFT MOUSE BUTTON + MOUSE = move in XY plane
+
+Main Controls:
+  Use C to switch / manipulate cameras
+  Use S to manipulate scene
+  Use L to switch / manipulate lights
+  Use O to switch / manipulate objects
+
+  Use 1..9 to change scene
+  Use Z/X to change scheme of raytracing
+
+Additional controls:
+  Use B to show / hide bounding boxes
+  Use G to show / hide gizmos
+  Use I to show / hide info panel
+  Use H to show / hide help panel
+  Use A to enable / disable animation
+  Use K to take screenshot
+
+Right click to get into context menu.
+
+Schemes:
+--------
+
+Scheme A:
+---------
+Basic scheme renders whole scene using classic OpenGL with custom shading.
+
+Code takes these steps:
+- clear buffers
+- render scene
+- display gizmos
+
+Scheme B:
+---------
+Scheme renders whole scene using classic OpenGL with custom shading.
+Plus builds data structures in the GPU.
+Data structures are
+- world space vertex positions.
+- world space normals
+- bounding boxes
+
+Code takes these steps:
+- clear buffers
+- render scene
+- switch to RTRF_PBUFFER_INTERSECTING
+- clear buffers
+- transform geometry
+- build bounding volumes
+- switch back to main context
+- display bounding boxes if enabled
+- display gizmos
+
+Scheme C:
+---------
+Performs scheme B. Plus traces bucket of reflection rays using brute force path.
+
+Code takes these steps:
+- clear buffers
+- render scene (=primary rays)
+- switch to RTRF_PBUFFER_INTERSECTING
+- clear buffers
+- generate rays
+- transform geometry
+- build bounding volumes
+- TRACE RAYS using BRUTE FORCE method
+- switch to shading context
+- perform shading of incomming hits
+- switch back to main context
+- do final image composition
+- display bounding boxes if enabled
+- display gizmos
+
+Scheme D:
+---------
+Performs scheme B. Plus traces bucket of reflection rays using NV38 path.
+
+Code takes these steps:
+- clear buffers
+- render scene (=primary rays)
+- switch to RTRF_PBUFFER_INTERSECTING
+- clear buffers
+- generate rays
+- transform geometry
+- build bounding volumes
+- TRACE RAYS using NV38 method
+- switch to shading context
+- perform shading of incomming hits
+- switch back to main context
+- do final image composition
+- display bounding boxes if enabled
+- display gizmos
+
+Scheme E:
+---------
+Performs scheme B. Plus traces bucket of reflection rays using NV40 path.
+
+Code takes these steps:
+- clear buffers
+- render scene (=primary rays)
+- switch to RTRF_PBUFFER_INTERSECTING
+- clear buffers
+- generate rays
+- transform geometry
+- build bounding volumes
+- TRACE RAYS using NV40 method
+- switch to shading context
+- perform shading of incomming hits
+- switch back to main context
+- do final image composition
+- display bounding boxes if enabled
+- display gizmos
+
+Scheme F+G:
+-----------
+Early Z-test as described by
+M.Harris at http://www.gpgpu.org/forums/viewtopic.php?t=256
+
+Scheme H+I:
+-----------
+Early stecil-test similar to F+G
+
+

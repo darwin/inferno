@@ -1,0 +1,5 @@
+built/cpuruntime.obj: ../../include/kerneldesc.hpp
+built/cpuruntime.obj: ./cpu.hpp
+built/cpuruntime.obj: ../../include/brt.hpp
+built/cpuruntime.obj: cpuruntime.cpp
+built/cpuruntime.obj: ./../runtime.hpp

@@ -1,0 +1,27 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// computation mask for NV40 path
+// see http://www.gpgpu.org/forums/viewtopic.php?t=256
+//
+// steps:
+// 1. read texture
+// 2. discard if condition is met
+float main(
+            float3 WPos : WPOS,
+            float2 Tex0 : TEX0,
+            uniform samplerRECT tests : TEXUNIT0
+            ) : COLOR
+{
+  half t = texRECT(tests, Tex0);
+  if (t>0.5)
+  {
+    discard;
+  }
+  return 1; // output whatever, color writes are disabled
+}

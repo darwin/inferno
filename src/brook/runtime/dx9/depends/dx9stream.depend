@@ -1,0 +1,9 @@
+built/dx9stream.obj: ../../include/kerneldesc.hpp
+built/dx9stream.obj: ./dx9texture.hpp
+built/dx9stream.obj: ./dx9base.hpp
+built/dx9stream.obj: ./../logger.hpp
+built/dx9stream.obj: dx9stream.cpp
+built/dx9stream.obj: ./../profiler.hpp
+built/dx9stream.obj: ../../include/brt.hpp
+built/dx9stream.obj: ./dx9.hpp
+built/dx9stream.obj: ./../runtime.hpp

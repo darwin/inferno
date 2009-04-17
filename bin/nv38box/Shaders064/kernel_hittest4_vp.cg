@@ -1,0 +1,39 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// define inputs from application
+struct appin
+{
+  float2 Position     : POSITION;
+  float  Tex0         : TEXCOORD0; // bounding test
+  float2 Tex1         : TEXCOORD1; // point sprite
+};
+
+// define outputs from vertex shader
+struct vertout
+{
+  float4 Position     : POSITION;
+  float2 Tex0         : TEX0;
+  float2 Tex1         : TEX1;
+  float2 Tex2         : TEX2;
+};
+
+vertout main(appin IN)
+{
+  vertout OUT;
+
+  if (IN.Tex0.x<0.5)
+    OUT.Position = float4(IN.Position, 0, 1);
+  else
+    OUT.Position = float4(-10, -10, 0, 1);
+
+  // compute texture coordinates
+  OUT.Tex0 = IN.Tex1;
+
+  return OUT;
+}

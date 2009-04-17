@@ -1,0 +1,15 @@
+/.cvsignore///
+/Makefile///
+/gpu.hpp///
+/gpubase.hpp///
+/gpucontext.hpp///
+/gpuiterator.cpp///
+/gpuiterator.hpp///
+/gpukernel.cpp///
+/gpukernel.hpp///
+/gpuruntime.cpp///
+/gpuruntime.hpp///
+/gpustream.cpp///
+/gpustream.hpp///
+D/dx9///
+D/ogl///

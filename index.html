@@ -1,0 +1,629 @@
+<html>
+	<head>
+		<style>
+BODY
+{
+    FONT-SIZE: 10px;
+    COLOR: #000000;
+    FONT-FAMILY: Tahoma, Verdana;
+    background-color: #FFFFFF;
+
+}
+TABLE
+{
+  PADDING: 0px;
+  MARGIN: 0px;
+}
+TR, TD, P, DIV
+{
+  PADDING: 0px;
+  MARGIN: 0px;
+  FONT-SIZE: 10px;
+  FONT-FAMILY: Tahoma, Verdana;
+}
+BUTTON {
+  background-color: #FFFFFF;
+  border-bottom: #000000 1px solid;
+  border-left: #000000 1px solid;
+  border-right: #000000 1px solid;
+  border-top: #000000 1px solid;
+  color: #000000;
+  font-family: Tahoma, Verdana, Arial, Helvetica;
+  font-size: 8pt;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+INPUT {
+  background-color: #FFFFFF;
+  border-bottom: #000000 1px solid;
+  border-left: #000000 1px solid;
+  border-right: #000000 1px solid;
+  border-top: #000000 1px solid;
+  font-family: Tahoma, Verdana, Arial, Helvetica;
+  font-size: 8pt;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+TEXTAREA {
+  background-color: #FFFFFF;
+  border-bottom: #000000 1px solid;
+  border-left: #000000 1px solid;
+  border-right: #000000 1px solid;
+  border-top: #000000 1px solid;
+  font-family: Tahoma, Verdana, Arial, Helvetica;
+  font-size: 8pt;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+FORM {
+  MARGIN: 0px;
+  PADDING: 0px;
+}
+
+PRE, CODE {
+  PADDING: 0px;
+  MARGIN: 0px;
+  font-family: Courier New;
+  font-size: 8pt;
+}
+
+.bannera {
+  color: black;
+  TEXT-DECORATION: none;
+}
+
+.sec_dashesh
+{
+    BACKGROUND-IMAGE: url("../img/sys.dashesh.png")
+}
+.sec_dotsh
+{
+    BACKGROUND-IMAGE: url("../img/sys.dotsh.png")
+}
+.sec_dashesv
+{
+    BACKGROUND-IMAGE: url("../img/sys.dashesv.png")
+}
+.sec_dotsv
+{
+    BACKGROUND-POSITION: center top;
+    BACKGROUND-IMAGE: url("../img/sys.dotsv.png");
+    BACKGROUND-REPEAT: repeat-y
+}
+.sec_rails
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    PADDING-TOP: 0px;
+    MARGIN-LEFT: 0px;
+    MARGIN-RIGHT: 0px;
+    MARGIN-BOTTOM: 0px;
+    MARGIN-TOP: 4px;
+    HEIGHT: 18px;
+    border-bottom: #AAAAAA 0px solid;
+    border-top: #AAAAAA 0px solid;
+    border-left: #AAAAAA 0px solid;
+    border-right: #AAAAAA 0px solid;
+}
+.rails_fix
+{
+    POSITION: relative;
+    TOP: -3px;
+}
+
+
+.sc
+{
+    COLOR: yellow;
+    TEXT-DECORATION: none;
+}
+
+.nc
+{
+    COLOR: white;
+    TEXT-DECORATION: none;
+}
+
+.ss
+{
+    COLOR: white;
+    TEXT-DECORATION: none;
+}
+
+.ns
+{
+    COLOR: white;
+    TEXT-DECORATION: none;
+}
+
+A
+{
+    COLOR: #0109A3;
+    TEXT-DECORATION: none;
+    TEXT-WEIGHT: 800;
+}
+A:hover
+{
+    COLOR: blue;
+    TEXT-DECORATION: none;
+    TEXT-WEIGHT: 800;
+}
+
+.broken_link A
+{
+    COLOR: #444444;
+    TEXT-DECORATION: line-through;
+}
+.broken_link A:hover
+{
+    COLOR: black;
+    TEXT-DECORATION: none;
+}
+
+
+.main
+{
+  background-color: #EEEEEE;
+  border-left: #777777 0px solid;
+  border-right: #777777 0px solid;
+}
+.active_pic
+{
+  border-bottom: #000000 1px solid;
+  border-left: #000000 1px solid;
+  border-right: #000000 1px solid;
+  border-top: #000000 1px solid;
+}
+
+.cicon {
+  position: relative;
+  left: -1px;
+  top: 3px;
+}
+.cimg {
+  position: relative;
+  left: -1px;
+  top: 2px;
+}
+
+.top_row {
+  background-color: #000000;
+  border-bottom: #606060 1px solid;
+  border-left: #606060 1px solid;
+  border-right: #606060 1px solid;
+  border-top: #606060 1px solid;
+  color: #FFFFFF;
+  text-align: left;
+  height: 15px;
+}
+
+.bottom_row {
+  background-color: #000000;
+  border-bottom: #606060 1px solid;
+  border-left: #606060 1px solid;
+  border-right: #606060 1px solid;
+  border-top: #606060 1px solid;
+  color: #FFFFFF;
+  text-align: left;
+  height: 15px;
+}
+
+.buttons_row {
+  background-color: #80AC00;
+  border-left: #777777 1px solid;
+  border-right: #777777 1px solid;
+}
+
+.content {
+  padding-bottom: 4px;
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin: 0px;
+  font-family: Tahoma, Verdana, Arial;
+  font-size: 100%;
+  color: #000000;
+  text-align: left;
+  font-size: 9pt;
+}
+
+.sec_content_inner {
+  padding-bottom: 4px;
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin: 0px;
+  font-family: Helvetica, Verdana, Arial;
+  font-size: 100%;
+  color: #000000;
+  text-align: left;
+  font-size: 9pt;
+}
+
+.sec_content_title
+{
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: left;
+  font-size: 9pt;
+  padding-left: 8px;
+}
+
+.sec_default
+{
+    PADDING-RIGHT: 1px;
+    PADDING-LEFT: 1px;
+    PADDING-BOTTOM: 1px;
+    MARGIN: 0px;
+    PADDING-TOP: 1px
+}
+.sec_default_title
+{
+    PADDING-RIGHT: 0px;
+    PADDING-LEFT: 0px;
+    PADDING-BOTTOM: 0px;
+    MARGIN: 0px;
+    PADDING-TOP: 0px
+}
+.sec_default_inner
+{
+    MARGIN-TOP: 4px
+}
+
+.sec_menu_title
+{
+  border-top: #44444 1px solid;
+  border-bottom: #AAAAAA 1px solid;
+  border-left: #444444 1px solid;
+  border-right: #AAAAAA 1px solid;
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: left;
+  font-size: 9pt;
+  padding-left: 8px;
+}
+
+.sec_menu_cell {
+  font-size: 9pt;
+  border-top: #E6E6E6 1px solid;
+  border-bottom: #BCBCBC 1px solid;
+  border-left: #E6E6E6 1px solid;
+  border-right: #BCBCBC 1px solid;
+  color: #000000;
+  background-color: #D1D1D1;
+  padding-left: 16px;
+  margin: 0px;
+}
+
+.sec_sub_table {
+  font-size: 9pt;
+  border-top: #E6E6E6 1px solid;
+  border-bottom: #BCBCBC 1px solid;
+  border-left: #E6E6E6 1px solid;
+  border-right: #BCBCBC 1px solid;
+  color: #000000;
+  background-color: #D1D1D1;
+  padding-left: 16px;
+  margin: 0px;
+}
+
+.sec_menu_spacer {
+  font-size: 9pt;
+  border-top: #E6E6E6 1px solid;
+  border-bottom: #BCBCBC 1px solid;
+  border-left: #E6E6E6 1px solid;
+  border-right: #BCBCBC 1px solid;
+  color: #000000;
+  background-color: #D1D1D1;
+  margin: 0px;
+}
+
+.sec_news
+{
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+  background-color: #C8C8C8;
+}
+.sec_news_logo
+{
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+  color: #606060;
+}
+.sec_news_title
+{
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: left;
+  font-size: 9pt;
+  padding-left: 8px;
+}
+
+.sec_news_inner
+{
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+}
+.sec_news_tr
+{
+  border-top: #E6E6E6 1px solid;
+  border-bottom: #BCBCBC 1px solid;
+  border-left: #E6E6E6 1px solid;
+  border-right: #BCBCBC 1px solid;
+  color: #000000;
+  background-color: #D1D1D1;
+}
+
+.sec_news_cell
+{
+  margin-right: 4px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+.sec_lspacer
+{
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+}
+
+.sec_lspacer_inner
+{
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+}
+
+.sec_rspacer
+{
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
+.sec_rspacer_inner
+{
+  padding-right: 2px;
+  padding-left: 2px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  margin: 0px;
+  height: 100%;
+}
+
+.left_column {
+  border-left: #777777 1px solid;
+  background-color: #F5F5F5;
+}
+
+.right_column {
+  border-left: #777777 1px solid;
+  border-right: #777777 1px solid;
+  background-color: #F5F5F5;
+}
+
+.logo_row {
+  border-left: #777777 1px solid;
+  border-right: #777777 1px solid;
+  border-bottom: #777777 1px solid;
+}
+
+.nicetable {
+  PADDING: 0px;
+  MARGIN: 0px;
+}
+
+.plain {
+  PADDING: 0px;
+  MARGIN: 0px;
+}
+
+.nicetable TD {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.simplehr {
+  PADDING: 0px;
+  MARGIN: 0px;
+  border-top: #000000 1px solid;
+  border-bottom: #000000 0px solid;
+  border-left: #000000 0px solid;
+  border-right: #000000 0px solid;
+}
+
+	</style>
+		<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=windows-1250">
+		<title>The Inferno Project - research of realtime-ray tracing on programmable 
+			graphics cards (GPUs)</title><META name="description" content="The Inferno Project aims to research realtime ray tracing on programmable graphics cards (GPUs)."><META name="keywords" content="ray tracing, realtime ray tracing, GPU, programmable graphics hardware, demoscene, engine, rendering, inferno project"></head><body bgcolor="FFFFFF" link="FFFFFF" vlink="FF3333" alink="FFFFFF" text="FFFFFF" topmargin="0"
+		leftmargin="0" marginheight="0" marginwidth="0"><center><table align="center" width="780" height="100%" cellpadding="0" cellspacing="0" class="main"
+				border="0" bordercolor="FFFFFF">
+				<tr>
+					<td colspan="5" class="top_row"><table width="100%" cellspacing="0" cellpading="0" border="0">
+							<tr>
+								<td align="left"><font color="FFFFFF"><b><a target="_top" href='http://www.opengl.org/'><font title="OpenGL news" class="ns">&nbsp;www.opengl.org&nbsp;</font></a>|<a target="_top" href='http://www.microsoft.com/directx/'><font title="Direct X homepage" class="ns">&nbsp;DirectX&nbsp;</font></a>|<a target="_top" href='http://www.sgi.com/software/opengl/'><font title="SGI OpenGL homepage" class="ns">&nbsp;SGI 
+													OpenGL&nbsp;</font></a>|<a target="_top" href='http://www.nvidia.com/developer'><font title="developers section at nvidia.com" class="ns">&nbsp;nVidia&nbsp;</font></a>|<a target="_top" href='http://www.ati.com/developer'><font title="developers section at ati.com" class="ns">&nbsp;ATI&nbsp;</font></a></b></font></td>
+								<td align="right"><font color="FFFFFF"></font></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" height="150" width="780" valign="top" class="logo_row"><table width="778" height="150" cellpadding="0" cellspacing="0" border="0" style='background-image: URL("img/gfx.logo.png")'>
+							<tr>
+								<td height="100%" valign="top" align="right"></td>
+							</tr>
+							<tr>
+								<td valign="top" align="right"><a target="_top" title='Computer Graphics Group at MFF UK Prague' href='http://cgg.ms.mff.cuni.cz'><img border="0" width="52" height="57" src='img/tip.cgg.png'></a></td>
+							</tr>
+							<tr>
+								<td valign="top" align="right"><a target="_top" title='Marshals Demogroup' href='http://www.marshals.cz'><img border="0" width="52" height="44" src='img/tip.mrs.png'></a></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td height="100%" width="100%" valign="top" class="right_column"><table cellpadding="0" cellspacing="0" width="100%">
+							<tr>
+								<td valign="top" class="sec_content"><table cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td class="sec_content_title">INFERNO CD INDEX</td>
+										</tr>
+										<tr>
+											<td class="sec_content_inner"><center>
+												<table cellpadding="0" cellspacing="0" width="80%">
+													<tr>
+														<td class="content"><style> p { padding-left: 8px; font-size: 9pt; } </style>
+														<br><br>
+															<b>Welcome to Inferno CD</b>.<br>
+															<br>
+															<p>The Inferno Project is a research of Ray Tracing accelerated by modern Graphics 
+																Hardware.</p>
+															<br>
+															<b>Main Information:</b>
+															<table class="content">
+																<tr>
+																	<td class="content" width="180"><a href="./readme.txt">./readme.txt</a></td>
+																	<td class="content">main readme file</td>
+																</tr>
+																<tr>
+																	<td class="content" width="180"><a href="./inferno.pdf">./inferno.pdf</a></td>
+																	<td class="content">master thesis text</td>
+																</tr>
+																<tr>
+																	<td class="content" width="180"><a href="./results.xls">./results.xls</a></td>
+																	<td class="content">results data cube</td>
+																</tr>
+																<tr>
+																	<td class="content" width="180"><a href="./license.txt">./license.txt</a></td>
+																	<td class="content">license</td>
+																</tr>
+															</table>
+															<br>
+															<b>NV38Box:</b>
+															<table class="content">
+																<tr>
+																	<td class="content" width="180"><a href="./bin/nv38box">./bin/nv38box</a></td>
+																	<td class="content">NV38Box application binaries</td>
+																</tr>
+																<tr>
+																	<td class="content" width="180"><a href="./bin/nv38box/manual.txt">./bin/nv38box/manual.txt</a></td>
+																	<td class="content">NV38Box application user manual</td>
+																</tr>
+																<tr>
+																	<td class="content" width="180"><a href="./bin/nv38box/readme.txt">./bin/nv38box/readme.txt</a></td>
+																	<td class="content">NV38Box application readme.txt</td>
+																</tr>
+																<tr>
+																	<td class="content" width="180"><a href="./src/nv38box">./src/nv38box</a></td>
+																	<td class="content">NV38Box application sources</td>
+																</tr>
+																<tr>
+																	<td class="content" width="180"><a href="./src/docs">./src/docs</a></td>
+																	<td class="content">NV38Box application sources documentation</td>
+																</tr>
+															</table>
+															<br>
+															<b>BrookBox:</b>
+															<table class="content" ID="Table1">
+																<tr>
+																	<td class="content" width="180"><a href="./bin/brookbox">./bin/brookbox</a></td>
+																	<td class="content">BrookBox application binaries</td>
+																</tr>
+																<tr>
+																	<td class="content" width="180"><a href="./bin/brookbox/manual.txt">./bin/brookbox/manual.txt</a></td>
+																	<td class="content">BrookBox application user manual</td>
+																</tr>
+																<tr>
+																	<td class="content" width="180"><a href="./bin/brookbox/readme.txt">./bin/brookbox/readme.txt</a></td>
+																	<td class="content">BrookBox application readme.txt</td>
+																</tr>
+																<tr>
+																	<td class="content" width="180"><a href="./src/brookbox">./src/brookbox</a></td>
+																	<td class="content">BrookBox application sources</td>
+																</tr>
+															</table>
+															<br>
+															<b>Homepage:</b>
+															<table class="content" ID="Table2">
+																<tr>
+																	<td class="content" width="180"><a href="http://inferno.hildebrand.cz">http://inferno.hildebrand.cz</a></td>
+																	<td class="content">The Inferno Project homepage</td>
+																</tr>
+															</table>
+															
+														</td>
+													</tr>
+												</table></center>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						<table cellpadding="0" cellspacing="0" height="100%" width="100%">
+							<tr>
+								<td valign="top" class="sec_lspacer"><table cellpadding="0" cellspacing="0" height="100%" width="100%">
+										<tr>
+											<td class="sec_lspacer_inner"><table cellpadding="0" cellspacing="0" height="100%" width="100%">
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5" class="bottom_row"><table width="100%" cellspacing="0" cellpading="0" border="0">
+							<tr>
+								<td style='padding-left: 2px;'><font color="BBBBBB">The official CD#1 of <a href="http://inferno.hildebrand.cz">
+											<font color="FFFFFF">Inferno Project</font></a>, best viewed in <a href="http://www.microsoft.com/ie">
+											<font color="FFFFFF">Internet Explorer</font></a> or <a href="http://mozilla.org">
+											<font color="FFFFFF">Mozilla</font></a> browsers, min. resolution 800x600</font></td>
+								<td align="right" style='padding-right: 2px;'></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+	</body>
+</html>

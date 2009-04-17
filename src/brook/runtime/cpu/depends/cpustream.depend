@@ -1,0 +1,5 @@
+built/cpustream.obj: ../../include/kerneldesc.hpp
+built/cpustream.obj: cpustream.cpp
+built/cpustream.obj: ./cpu.hpp
+built/cpustream.obj: ../../include/brt.hpp
+built/cpustream.obj: ./../runtime.hpp

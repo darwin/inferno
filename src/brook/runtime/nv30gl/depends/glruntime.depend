@@ -1,0 +1,7 @@
+built/glruntime.obj: ../../include/kerneldesc.hpp
+built/glruntime.obj: ./glruntime.hpp
+built/glruntime.obj: ./wglext.h
+built/glruntime.obj: ../../include/brt.hpp
+built/glruntime.obj: glruntime.cpp
+built/glruntime.obj: ./nv30glext.h
+built/glruntime.obj: ./../runtime.hpp

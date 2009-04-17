@@ -1,0 +1,11 @@
+built/dx9kernel.obj: ../../include/kerneldesc.hpp
+built/dx9kernel.obj: ./dx9texture.hpp
+built/dx9kernel.obj: dx9kernel.cpp
+built/dx9kernel.obj: ./dx9base.hpp
+built/dx9kernel.obj: ./dx9vertexshader.hpp
+built/dx9kernel.obj: ./../logger.hpp
+built/dx9kernel.obj: ./../profiler.hpp
+built/dx9kernel.obj: ./dx9pixelshader.hpp
+built/dx9kernel.obj: ../../include/brt.hpp
+built/dx9kernel.obj: ./dx9.hpp
+built/dx9kernel.obj: ./../runtime.hpp

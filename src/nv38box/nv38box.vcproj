@@ -1,0 +1,1680 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="nv38box"
+	ProjectGUID="{A2A79610-0A1C-4374-9746-4A3E67E48902}"
+	RootNamespace="nv38box"
+	Keyword="Win32Proj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="../workspace/$(ProjectName)_$(ConfigurationName)_Output"
+			IntermediateDirectory="../workspace/$(ProjectName)_$(ConfigurationName)_Intermediate"
+			ConfigurationType="1"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories=".;Common;Math;Shaders;RaytracerRForce;RaytracerPurcell;RaytracerVista;../glew/include;&quot;C:\Program Files\NVIDIA Corporation\Cg\include&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;GLEW_STATIC "
+				MinimalRebuild="TRUE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="base.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="glew32sd.lib cg.lib cgGL.lib imdebug.lib"
+				OutputFile="Bin/nv38boxd.exe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="lib;&quot;C:\Program Files\NVIDIA Corporation\Cg\lib&quot;"
+				IgnoreDefaultLibraryNames="MSVCRTD.lib"
+				GenerateDebugInformation="TRUE"
+				SubSystem="1"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="../workspace/$(ProjectName)_$(ConfigurationName)_Output"
+			IntermediateDirectory="../workspace/$(ProjectName)_$(ConfigurationName)_Intermediate"
+			ConfigurationType="1"
+			CharacterSet="2"
+			WholeProgramOptimization="TRUE">
+			<Tool
+				Name="VCCLCompilerTool"
+				OptimizeForProcessor="3"
+				AdditionalIncludeDirectories=".;Common;Math;Shaders;RaytracerRForce;RaytracerPurcell;RaytracerVista;../glew/include;&quot;C:\Program Files\NVIDIA Corporation\Cg\include&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;GLEW_STATIC "
+				RuntimeLibrary="0"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="base.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="0"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="glew32s.lib cg.lib cgGL.lib"
+				OutputFile="bin/nv38box.exe"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="lib;&quot;C:\Program Files\NVIDIA Corporation\Cg\lib&quot;"
+				IgnoreDefaultLibraryNames="msvcrt.lib;libc.lib;libcmtd.lib"
+				GenerateDebugInformation="FALSE"
+				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Base"
+			Filter="">
+			<File
+				RelativePath=".\base.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\base.h">
+			</File>
+			<File
+				RelativePath=".\nv38box.cpp">
+			</File>
+			<File
+				RelativePath=".\nv38box.h">
+			</File>
+			<File
+				RelativePath=".\utils.cpp">
+			</File>
+			<File
+				RelativePath=".\utils.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Common"
+			Filter="">
+			<File
+				RelativePath=".\Common\CgManager.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\CgManager.h">
+			</File>
+			<File
+				RelativePath=".\Common\GPUAlgorithm.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\GPUAlgorithm.h">
+			</File>
+			<File
+				RelativePath=".\Common\Kernel.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\Kernel.h">
+			</File>
+			<File
+				RelativePath=".\Common\KernelManager.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\KernelManager.h">
+			</File>
+			<File
+				RelativePath=".\Common\ManagerBase.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\ManagerBase.h">
+			</File>
+			<File
+				RelativePath=".\Common\Options.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\Options.h">
+			</File>
+			<File
+				RelativePath=".\Common\PBuffer.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\PBuffer.h">
+			</File>
+			<File
+				RelativePath=".\Common\PBufferManager.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\PBufferManager.h">
+			</File>
+			<File
+				RelativePath=".\Common\Raytracer.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\Raytracer.h">
+			</File>
+			<File
+				RelativePath=".\Common\RenderTexture.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\RenderTexture.h">
+			</File>
+			<File
+				RelativePath=".\Common\Scene.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\Scene.h">
+			</File>
+			<File
+				RelativePath=".\Common\Texture.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\Texture.h">
+			</File>
+			<File
+				RelativePath=".\Common\TextureManager.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\TextureManager.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Programs"
+			Filter="">
+			<File
+				RelativePath="Bin\Shaders\constants.h">
+			</File>
+			<File
+				RelativePath="Bin\Shaders\defines.h">
+			</File>
+			<Filter
+				Name="bvbuilder"
+				Filter="">
+				<File
+					RelativePath=".\Bin\Shaders\kernel_bvbuilder1_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_bvbuilder1_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_bvbuilder2_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_bvbuilder2_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="bvtest"
+				Filter="">
+				<File
+					RelativePath=".\Bin\Shaders\kernel_bvtest1_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_bvtest1_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_bvtest2_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_bvtest2_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="hittest"
+				Filter="">
+				<File
+					RelativePath=".\Bin\Shaders\kernel_hittest1_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_hittest1_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_hittest2_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_hittest2_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_hittest3_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_hittest3_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_hittest4_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_hittest4_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="raygenerator"
+				Filter="">
+				<File
+					RelativePath=".\Bin\Shaders\kernel_raygenerator1_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_raygenerator1_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_raygenerator2_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_raygenerator2_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="shader"
+				Filter="">
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader10_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader10_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader1_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader1_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader2_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader2_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader3_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader3_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader4_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader4_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader5_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader5_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader6_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader6_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader7_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader7_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader8_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader8_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader9_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_shader9_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="transformer"
+				Filter="">
+				<File
+					RelativePath=".\Bin\Shaders\kernel_transformer1_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_transformer1_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_transformer2_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_transformer2_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="reducehits"
+				Filter="">
+				<File
+					RelativePath=".\Bin\Shaders\kernel_reducehits1_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_reducehits1_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_reducehits2_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_reducehits2_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="debug"
+				Filter="">
+				<File
+					RelativePath=".\Bin\Shaders\kernel_debug1_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_debug1_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_debug2_fp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile fp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\Bin\Shaders\kernel_debug2_vp.cg">
+					<FileConfiguration
+						Name="Debug|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32">
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Assembling $(InputFileName)"
+							CommandLine="cgcw.exe -profile vp30 -o $(InputPath).shd $(InputPath)
+"
+							Outputs="$(InputPath).shd"/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="RaytracerRForce"
+			Filter="">
+			<File
+				RelativePath=".\RaytracerRForce\KernelBVBuilder.cpp">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelBVBuilder.h">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelBVTest.cpp">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelBVTest.h">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelDebug.cpp">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelDebug.h">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelHitTest.cpp">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelHitTest.h">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelRayGenerator.cpp">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelRayGenerator.h">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelReduceHits.cpp">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelReduceHits.h">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelShader.cpp">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelShader.h">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelTransformer.cpp">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\KernelTransformer.h">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\RaytracerRForce.cpp">
+			</File>
+			<File
+				RelativePath=".\RaytracerRForce\RaytracerRForce.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Math"
+			Filter="">
+			<File
+				RelativePath=".\Math\WmlAxisAlignedBox2.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlAxisAlignedBox2.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlBandedMatrix.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlBandedMatrix.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlColorRGB.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlColorRGB.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlColorRGB.inl">
+			</File>
+			<File
+				RelativePath=".\Math\WmlGMatrix.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlGMatrix.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlGVector.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlGVector.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlMath.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlMath.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlMatrix.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlMatrix.inl">
+			</File>
+			<File
+				RelativePath=".\Math\WmlMatrix2.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlMatrix2.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlMatrix3.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlMatrix3.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlMatrix4.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlMatrix4.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlPoint.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlPoint.inl">
+			</File>
+			<File
+				RelativePath=".\Math\WmlPoint2.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlPoint2.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlPoint3.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlPoint3.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlPoint4.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlPoint4.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlPolynomial1.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlPolynomial1.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlQuaternion.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlQuaternion.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlTuple.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlTuple.inl">
+			</File>
+			<File
+				RelativePath=".\Math\WmlVector.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlVector.inl">
+			</File>
+			<File
+				RelativePath=".\Math\WmlVector2.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlVector2.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlVector3.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlVector3.h">
+			</File>
+			<File
+				RelativePath=".\Math\WmlVector4.cpp">
+			</File>
+			<File
+				RelativePath=".\Math\WmlVector4.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="glh"
+			Filter="">
+			<File
+				RelativePath=".\glh\glh_array.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_convenience.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_cube_map.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_glut.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_glut2.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_glut_callfunc.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_glut_replay.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_glut_text.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_interactors.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_linear.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_mipmaps.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_obs.h">
+			</File>
+			<File
+				RelativePath=".\glh\glh_text.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="nv"
+			Filter="">
+			<File
+				RelativePath=".\nv\affine_decomp.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\nv\nv_algebra.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\nv\nv_algebra.h">
+			</File>
+			<File
+				RelativePath=".\nv\nv_manip.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\nv\nv_manip.h">
+			</File>
+			<File
+				RelativePath=".\nv\nv_math.h">
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\cgcw.ini">
+		</File>
+		<File
+			RelativePath=".\icon1.ico">
+		</File>
+		<File
+			RelativePath=".\nv38box.rc">
+		</File>
+		<File
+			RelativePath=".\resource.h">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

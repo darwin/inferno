@@ -1,0 +1,28 @@
+// Marshals demogroup
+// http://www.marshals.cz
+// Copyright (c) 2003 Antonin Hildebrand. All Rights Reserved
+
+#ifndef WMLMATH_PKG
+#define WMLMATH_PKG
+
+#include "WmlBandedMatrix.h"
+#include "WmlGMatrix.h"
+#include "WmlGVector.h"
+#include "WmlMath.h"
+#include "WmlMatrix.h"
+#include "WmlMatrix2.h"
+#include "WmlMatrix3.h"
+#include "WmlPoint.h"
+#include "WmlPoint2.h"
+#include "WmlPoint3.h"
+#include "WmlPoint4.h"
+#include "WmlPolynomial1.h"
+#include "WmlTuple.h"
+#include "WmlVector.h"
+#include "WmlVector2.h"
+#include "WmlVector4.h"
+#include "WmlMatrix4.h"
+#include "WmlQuaternion.h"
+#include "WmlVector3.h"
+
+#endif

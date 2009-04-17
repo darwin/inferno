@@ -1,0 +1,7 @@
+built/glcheckgl.obj: ../../include/kerneldesc.hpp
+built/glcheckgl.obj: ./glruntime.hpp
+built/glcheckgl.obj: ./wglext.h
+built/glcheckgl.obj: ../../include/brt.hpp
+built/glcheckgl.obj: glcheckgl.cpp
+built/glcheckgl.obj: ./nv30glext.h
+built/glcheckgl.obj: ./../runtime.hpp

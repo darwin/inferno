@@ -1,0 +1,44 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// define inputs from application
+struct appin
+{
+  float4 Position     : POSITION;
+  float3 Normal       : NORMAL;
+  float4 Color        : COLOR;
+  float2 Tex0         : TEXCOORD0;
+  float4 Tex1         : TEXCOORD1;
+  float4 Tex2         : TEXCOORD2;
+};
+
+// define outputs from vertex shader
+struct vertout
+{
+  float4 Position     : POSITION;
+  float4 Tex0         : TEX0;
+};
+
+vertout main(appin IN, 
+             uniform float4x4 ModelViewProj,
+             uniform float4x4 Model,
+             uniform float4x4 ModelIT,
+             uniform float4 WEyePos)
+{
+  vertout OUT;
+
+  OUT.Position = mul(ModelViewProj, IN.Position);
+  float3 normal = normalize(mul((float3x3)ModelIT, IN.Normal));
+  float3 pos = mul(Model, IN.Position).xyz;
+  float3 eyevec = normalize(pos - WEyePos.xyz);
+  float3 refracted = normalize(reflect(eyevec, normal));
+  OUT.Tex0.xyz = pos;
+  OUT.Tex0.w = IN.Tex1.w; // packed tri material coef
+
+  return OUT;
+}

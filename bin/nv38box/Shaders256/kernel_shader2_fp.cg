@@ -1,0 +1,34 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+// BASIC + COLORED SECONDARY RAYS
+#include "constants.h"
+#include "defines.h"
+
+// main shader
+float4 main(
+            float3 WPos : WPOS,
+            float2 Tex0 : TEX0,
+            float2 Tex1 : TEX1,
+            uniform samplerRECT rays : TEXUNIT0,
+            uniform samplerRECT basic : TEXUNIT1,
+            uniform samplerRECT colors : TEXUNIT2
+            ) : COLOR
+{
+  float4 ray = texRECT(rays, Tex0);  
+  float4 pixel = texRECT(basic, Tex1);
+
+  float4 r; //= //pixel; // pixel;
+  if (ray.x<CG_FLT_MAX) 
+  {
+    half2 triuv = unpack_2half(ray.w);
+    float4 color = texRECT(colors, triuv);
+    r = color; // simple aditive
+  }
+
+  r.a = 1.0f;
+
+  return r;
+}

@@ -1,0 +1,9 @@
+built/dx9pixelshader.obj: ../../include/kerneldesc.hpp
+built/dx9pixelshader.obj: ./dx9base.hpp
+built/dx9pixelshader.obj: dx9pixelshader.cpp
+built/dx9pixelshader.obj: ./../logger.hpp
+built/dx9pixelshader.obj: ./../profiler.hpp
+built/dx9pixelshader.obj: ./dx9pixelshader.hpp
+built/dx9pixelshader.obj: ../../include/brt.hpp
+built/dx9pixelshader.obj: ./dx9.hpp
+built/dx9pixelshader.obj: ./../runtime.hpp

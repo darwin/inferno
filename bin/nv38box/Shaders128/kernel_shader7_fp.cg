@@ -1,0 +1,19 @@
+// NV38Box (http://inferno.hildebrand.cz)
+// Copyright (c) 2004 Antonin Hildebrand
+// licensed under zlib/libpng license (see license.txt)
+// released in Shader Triathlon – Summer 2004 ("Contest")
+
+#include "constants.h"
+#include "defines.h"
+
+// main shader
+float4 main(
+            float3 WPos : WPOS,
+            float4 Tex0 : TEX0,
+            float4 Color : COLOR0, // r=diffuse, a=specular
+            uniform sampler2D material : TEXUNIT0
+            ) : COLOR
+{
+  float3 mat = tex2D(material, Tex0.xy).xyz;
+  return float4(Color.r*mat + Color.a*RTRF_SPECULAR_COLOR, 0);
+}

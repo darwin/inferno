@@ -1,0 +1,6 @@
+built/dx9window.obj: ./../profiler.hpp
+built/dx9window.obj: dx9window.cpp
+built/dx9window.obj: ./dx9base.hpp
+built/dx9window.obj: ../../include/brt.hpp
+built/dx9window.obj: ./../logger.hpp
+built/dx9window.obj: ./dx9window.hpp
