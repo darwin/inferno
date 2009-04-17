@@ -5,7 +5,6 @@ Title: Raytracing accelerated by modern graphics hardware
 Author: Antonin Hildebrand
 Department: Kabinet software a vyuky informatiky
 Supervisor: RNDr. Josef Pelikan
-Supervisor’s e-mail address: Josef.Pelikan@mff.cuni.cz
 
 Abstract: Recent advances in consumer graphics hardware have made significant
 progress. Recently fixed function graphics chips have been replaced with programmable
