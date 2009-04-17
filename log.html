@@ -1,0 +1,686 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>
+      The Inferno Project - research of realtime-ray tracing on programmable graphics cards (GPUs)
+    </title>
+    <meta name="description" content="The Inferno Project aims to research realtime ray tracing on programmable graphics cards (GPUs).">
+    <meta name="keywords" content="ray tracing, realtime ray tracing, GPU, programmable graphics hardware, demoscene, engine, rendering, inferno project">
+    <link rel="stylesheet" type="text/css" href="data/basic.css">
+    <style type="text/css">
+      p { padding-left: 8px; font-size: 9pt; }
+    </style>
+  </head>
+  <body topmargin="0" leftmargin="0" alink="#FFFFFF" bgcolor="#FFFFFF" link="#FFFFFF" marginheight="0" marginwidth="0" text="#FFFFFF" vlink="#FF3333">
+    <center>
+      <table class="main" align="center" border="0" bordercolor="#FFFFFF" cellpadding="0" cellspacing="0" height="100%" width="780">
+        <tbody>
+          <tr>
+            <td colspan="5" class="top_row">
+              <table cellpading="0" border="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td align="left">
+                      <font color="#FFFFFF"><b><a target="_top" href="http://www.opengl.org/"><font title="OpenGL news" class="ns">&nbsp;www.opengl.org&nbsp;</font></a>|<a target="_top" href="http://www.microsoft.com/directx/"><font title="Direct X homepage" class="ns">&nbsp;Direct X&nbsp;</font></a>|<a target="_top" href="http://www.sgi.com/software/opengl/"><font title="SGI OpenGL homepage" class="ns">&nbsp;SGI OpenGL&nbsp;</font></a>|<a target="_top" href="http://www.nvidia.com/developer"><font title="developers section at nvidia.com" class="ns">&nbsp;nVidia&nbsp;</font></a>|<a target="_top" href="http://www.ati.com/developer"><font title="developers section at ati.com" class="ns">&nbsp;ATI&nbsp;</font></a></b></font>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="logo_row" height="150" valign="top" width="780">
+              <table style="background-image: url(img/gfx.logo.png);" border="0" cellpadding="0" cellspacing="0" height="150" width="778">
+                <tbody>
+                  <tr>
+                    <td align="right" height="100%" valign="top"></td>
+                  </tr>
+                  <tr>
+                    <td align="right" valign="top">
+                      <a target="_top" title="Computer Graphics Group at MFF UK Prague" href="http://cgg.ms.mff.cuni.cz/"><img src="data/tip_002.png" border="0" height="57" width="52"></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right" valign="top">
+                      <a target="_top" title="Marshals Demogroup" href="http://www.marshals.cz/"><img src="data/tip.png" border="0" height="44" width="52"></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td class="left_column" height="100%" valign="top" width="140">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td class="sec_menu" valign="top">
+                      <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td class="sec_menu_title">
+                              INFERNO MENU
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sec_menu_inner">
+                              <table cellpadding="0" cellspacing="0" width="100%">
+                                <tbody>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens introduction description of the project" align="left" valign="top" width="100%">
+                                      <nobr><a href="/index.html"><b>Introduction</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens Pros&amp;Cons page" align="left" valign="top" width="100%">
+                                      <nobr><a href="/proscons.html"><b>Pros &amp; Cons</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens Research Focus page" align="left" valign="top" width="100%">
+                                      <nobr><a href="/research.html"><b>Research Focus</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens project log" align="left" valign="top" width="100%">
+                                      <nobr><a href="/log.html"><b>Project Log</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens related references and links" align="left" valign="top" width="100%">
+                                      <nobr><a href="/links.html"><b>Related Links</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="" align="left" valign="top" width="100%">
+                                      <nobr></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens RForce method description" align="left" valign="top" width="100%">
+                                      <nobr><a href="/rforce.html"><b>RForce Method</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_spacer" colspan="2" align="right" height="16" valign="bottom" width="100%">
+                                      &nbsp;
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td class="sec_menu" valign="top">
+                      <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td class="sec_menu_title">
+                              INFERNO FOCUS
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sec_menu_inner">
+                              <table cellpadding="0" cellspacing="0" width="100%">
+                                <tbody>
+                                  <tr>
+                                    <td class="plain" colspan="2" title="General Purpose Computation Using Graphics Hardware" align="left" valign="top" width="100%">
+                                      <a target="_blank" href="http://www.gpgpu.org/"><img class="plain" src="data/gfx_002.png" border="0" height="48" width="140"></a>
+                                    </td>
+                                  </tr>
+                                  <tr height="1">
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="plain" colspan="2" title="Cg Shaders - The next evolution of GPU programming" align="left" valign="top" width="100%">
+                                      <a target="_blank" href="http://www.cgshaders.org/"><img class="plain" src="data/gfx.png" border="0" height="48" width="140"></a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td class="sec_news" valign="top">
+                      <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td class="sec_news_title">
+                              INFERNO NEWS
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sec_news_inner">
+                              <table cellpadding="0" cellspacing="0" width="100%">
+                                <tbody>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>14.08.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>master thesis released<br>
+                                              RForce introduced<br>
+                                              NV38Box released<br>
+                                              BrookBox released<br>
+                                              project log updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>25.05.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>project log updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>10.05.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>project log updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>06.05.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>project log updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>03.05.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>project log updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>29.03.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>project log updated<br>
+                                              links updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="3" valign="bottom">
+                                      <table width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td align="right">
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td class="right_column" height="100%" valign="top" width="640">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td class="sec_content" valign="top">
+                      <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td class="sec_content_title">
+                              INFERNO PROJECT LOG</td></tr><tr><td class="sec_content_inner"><table cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="content"><table class="simple" height="100%" width="100%"><tbody><tr height="4"><td colspan="3"></td></tr><tr><td style="padding-left: 2px; padding-right: 2px;" width="80">14.08.2004</td><td style="padding-left: 2px;" width="100%"><a target="_top" href="?s=14"><b>Master Thesis published: RForce method (NV38Box) + Purcell's raytracer in BrookGPU (BrookBox)</b></a></td><td style="padding-right: 4px;" align="right"><nobr></nobr></td></tr><tr><td class="sec_dotsh" style="padding-right: 4px;" colspan="2" height="1"></td></tr><tr><td></td><td style="padding-left: 2px; padding-right: 4px;" valign="top"><b>I have introduced new method called RForce and released master thesis on this topic.</b><br><br><b>Features of RForce method:</b><br>
+                              - dynamic GPU raytracer running in realtime for simple scenes and low
+                              resolutions<br>
+                              - scene = 16 triangular objects per 64 triangles (total up to 1024 triangles)<br>
+                              - using AABB as an acceleration structure<br>
+                              - per pixel shading for both primary and secondary rays<br>
+                              - no dynamic flow control as opposite to Purcell's method<br>
+                              - hybrid algorithm (primary rays = classic rasterization)<br>
+                              - nVidia only, NV38 path, NV40 path, brute force for comparison<br>
+                              - implementation performs only secondary reflection rays,but method is more flexible in general<br>
+                              - tested on WinXP, GeForce 5950 Ultra, ForceWare 60.xx<br>
+                              - slow for greater resolutions than 128x128 (but working)<br><br>
+                              See some screenshots of raytraced scenes:<br><a href="img/balls_rt.png"><img src="img/balls_rtt.png"></a>&nbsp;
+                              <a href="img/teapot_rt.png"><img src="img/teapot_rtt.png"></a>&nbsp;
+                              <a href="img/planets_rt.png"><img src="img/planets_rtt.png"></a>&nbsp;
+                              <a href="img/rotor_rt.png"><img src="img/rotor_rtt.png"></a>&nbsp;
+                              <a href="img/prism_rt.png"><img src="img/prism_rtt.png"></a>&nbsp;
+                              <br><br>
+                              English translation of main parts from the thesis is available under <a href="/rfroce.html">the RForce method menu item</a><br>
+                              Thesis CD can be downloaded as whole zip file <a href="http://dl.getdropbox.com/u/559047/thesiscd.zip">thesiscd.zip</a> [53MB].<br><br>
+                              Secondary product is a <a href="wrk/thesiscd/bin/brookbox/">Purcell's type raytracer implemented in BrookGPU</a> (also included on CD).<br></td></tr><tr height="4"><td colspan="3"></td></tr><tr><td style="padding-left: 2px; padding-right: 2px;" width="80">25.05.2004</td><td style="padding-left: 2px;" width="100%"><b>NV38Box progress and vista method</b></td><td style="padding-right: 4px;" align="right"><nobr></nobr></td></tr><tr><td class="sec_dotsh" style="padding-right: 4px;" colspan="2" height="1"></td></tr><tr><td></td><td style="padding-left: 2px; padding-right: 4px;" valign="top">I
+                              started implementation of NV38Box - shell apllication for set of
+                              raytracing methods running on GPU finetuned for NV38 chip. At the end
+                              there should be implemented Purcell's raytracer and optionally my own
+                              ideas.<br><br>
+                              Last week I started to work on my new idea of doing ray-tracing another way on my NV38. Let's call this method a <b>vista method</b>.
+                              I don't know any related papers to this method. I'm not sure if this
+                              approach is suitable for GPUs and I'm still not sure if it is even
+                              working. I did a set of implementation tests last week to find out if
+                              it is doable with current OpenGL API.<br><br><b>Vista Method</b><br>
+                              Let's start with Purcell's GPU raytracer scheme:<br><br><pre>
+start:
+  generate rays
+  loop while any rays active
+    if (oracle())
+      traverse()
+    else
+      intersect()
+  shade
+  goto start if there are more rays to do
+                              </pre><br>
+                              From my experience with test scenes in BrookGPU implementation, i need
+                              hundreds or thousands cycles for that loop.
+                              I have a very simple oracle repeating 5x traverse and 5x intersect in a
+                              row for scene with 10x10x10 grid in Brook (see posts below).
+                              Purcell discussed optimization using NV_occlusion_query and early
+                              z-culling in his dissertation. I hope that can help a lot but I don't
+                              believe it helps me running thousands passes on nvidia hardware in real
+                              time. Flow control is a problem when doing NV3x GPU stuff. I need some
+                              flow-control-constrained method. Maybe I would exchange it with less
+                              precision results. What about moving into image space and letting
+                              rasterizer do the hard work of finding ray-triangle intersections in
+                              less passes ? Is it possible ? What about aliasing problems ? Many
+                              other questions arise ...<br><br>OK, let's try it:<br>
+                              Method is based on:<br>
+                              1. depth peeling idea for generating lookup maps<br>
+                              2. rasterizing rays as lines in world space<br>
+                              3. rasterizing ray hits as points in camera space<br>
+                              4. method does 2x "rendering into vertex array"<br><br>
+                              Here is a rough scheme:<br><pre>
+frame preprocess:
+  generate vista maps
+start:
+  generate rays
+  find hits
+  shade
+  goto start if there are more rays to do
+                              </pre><br><br>
+                              I tried to run this method on my previous simple test scene. 3x wall
+                              and one sphere (~2400 tris). Depth complexity is 2. All example
+                              pictures are taken from this scene. Second picture is OpenGL rendering
+                              with disabled lighting.<br><a href="pub/vista_scene.png"><img title="vista scene" src="pub/vista_scene_t.png"></a><a href="pub/vista_nv38box.png"><img title="nv38box" src="pub/vista_nv38box_t.png"></a><br><br><b>generate vista maps</b>:<br>
+                              I render 6x8 vista maps. Camera is using ortogonal projection, placed
+                              outside the scene box and facing the center of scene box. 6x means
+                              "take all cube face directions" (FRONT, BACK, LEFT, RIGHT, TOP,
+                              BOTTOM). 8x means "perform depth peeling for level 0 up to level 7").
+                              This is not needed because current scene has only 2 depth levels, but
+                              it fits resolution of the pbuffer well. I use pixel shader which writes
+                              trinagle id and fragment z. See picture:<br><a href="pub/vista_vistadetail.png"><img title="vista maps triangled IDs scaled" src="pub/vista_vistadetail_t.png"></a><br>
+                              However, after this step I have 48 vista maps, each with dimension
+                              128x128 pixels. Scene was rendered using VBOs and
+                              render_to_depth_texture. Shadow mapping hardware was used to perform
+                              second depth test (see <a href="http://developer.nvidia.com/object/Interactive_Order_Transparency.html">Cass Everit's paper</a>). Every pixel knows it's triangle id and z value when rasterized.
+                              <br><br><b>find hits</b>:<br>
+                              First see example pictures how is pbuffer memory organized: (note that
+                              buffer is not in full resolution and colors encode the data)<br><a href="pub/vista_frontbuffer.png"><img title="vista scene - front buffer" src="pub/vista_frontbuffer_t.png"></a><a href="pub/vista_backbuffer.png"><img title="vista scene - back buffer" src="pub/vista_backbuffer_t.png"></a><br>  
+                              Hits are detected this way:<br>
+                              1. I have rendered scene from eye view. For every pixel I want to trace
+                              a ray, I know ray origin and ray end. I copy this data into vertex
+                              array 1 (VA1). (Note: If I don't want to trace line, I just fill some
+                              coordinates like start=[-1, -1, -1] and end=[-1,-1,-1] and hope line
+                              gets completelly clipped)<br>
+                              2. I draw VA1 as GL_LINES using rayinspector pixel shader. Ray origin
+                              and ray end are given in world space. I render VA1 48 times (for every
+                              vista map) with proper MODELVIEW matrix. The result of the line
+                              rasterization are confirmed hit points (look them as a yellow points
+                              the rest is black - discard). In pixel I store ray address in eye space
+                              in [x,y], z = time of hit event, w = triangle id of hit.
+                              <br>
+                              3. I copy hit points into VA2.<br>4. I draw VA2 as GL_POINTS
+                              using hitinspector pixel shader. This reports hits to their pixels in
+                              eye view. DEPTH_TEST must be enabled with GL_LESS to sort hits in pixel
+                              according to time.<br><br><b>rayinspector</b>:<br>
+                              RayInspector is a pixel shader used for rasterization fragments of the
+                              line. One line represents one ray. I render one ray 48 times (for each
+                              vista map). Line is rasterized in world space from ray's origin to the
+                              ray's end. In every fragment I have a chance to check the ray against
+                              trinagle whose ID is stored in the current vista map. Test ray vs.
+                              triangle is done analytically (see related links for the paper or see
+                              Purcell's paper). I need to reduce number of these tests because of two
+                              reasons:<br>
+                              1. in every pixel of vista map space I can remember only one hit, so
+                              flooding with same hit multiple times would be wasting this valuable
+                              space<br>
+                              2. ray-triangle intersection code is a complex fragment program<br>
+                              I can test z value of incomming fragment of the line against z-value
+                              stored in the vista map. If they are not close enough (within some
+                              specified interval) I should discard the fragment. This should help
+                              prevent flooding vista map space with redundant hits but on the other
+                              hand it can forget some hits. How big is this error ? Can I manage
+                              ray-triangle intersection deferred computing ? I hope this z-interval
+                              test can be accelerated in shadow mapping hardware (in texture units)
+                              and not computed in fragment program itself.<br><br><b>hitinspector</b>:<br>
+                              HitInspector is a pixel shader used for rasterization fragment(s) of
+                              the points. One point represents one hit produced by RayInspector.
+                              Point has position [x,y,z] where [x,y] are screen coordinates of pixel
+                              from eye view (this pixel was sending the ray = line was executed by
+                              this pixel). [z] is time when hit was detected. Using depth test with
+                              GL_LESS, we force rasterizer to return us only first hit of every
+                              pixel. [w] is a texture coordinate storing tringle ID. That mean's ID
+                              of triangle which was hit by the ray. With this information next shader
+                              pass can compute ray shading. If there was no hit between ray from
+                              [x,y] and triangles of the scene. No "hit pixel" is rasterized in the
+                              position [x,y].
+                              <br><br>
+                              Method's <font color="red">cons</font>:<br>
+                              1. scene must have a limited depth complexity (no problem for me)<br>
+                              2. aliasing problems (oh, we know it from shadow mapping)<br>
+                              3. pathological cases (ray perpendicular to triangle both perpendicular to vista map view)<br>4.
+                              lost hits due to limit "one hit per vista map texel" (limit amount of
+                              reflective materials in the scene, increase resolution, limit somehow
+                              hit flooding, etc.)<br>
+                              ...<br><br>
+                              Method's <font color="blue">pros</font>:<br>
+                              1. works for dynamic scenes (cool !!!)<br>
+                              2. better GPU utilization than Purcell's ?<br><br><br><br><b>Current implementation</b>(=problems)<br>
+                              I'm using OpenGL 1.5 + GLEW library, Cg 1.2 + Cg runtime, vp30 and fp30
+                              profiles, RenderTexture class. Forceware 61.12 drivers. GPU GeForce FX
+                              5950U<br>
+                              allocated pbuffer 1024x1024 with parameters "rgba=32f doublebuffer depth texRECT depthTexRECT"
+                              <pre>
+main loop
+  render scene from eye view
+  switch to pbuffer
+    render 6x8 vista maps in front 
+    // area [0..8x128, 0..6x128]
+    render from eye view into front (write ray origins) 
+    // area [0..255, 6x128...6x128+255]
+    render from eyeview into front (write ray ends) 
+    // area[256..256+255, 6x128...6x128+255]
+    render vertical line grid (1px spacer) into back 
+    // area [0..510, 6x128...6x128+255] 
+    // (written every even line) output origins
+    render vertical line grid (1px spacer) into back 
+    // area [1..511, 6x128...6x128+255] 
+    // (written every odd line) output ends
+    render vertical line grid (1px spacer) into back 
+    // area [512+0..512+510, 6x128...6x128+255] 
+    // (written every even line) output ends
+    render vertical line grid (1px spacer) into back 
+    // area [512+1..512+511, 6x128...6x128+255] 
+    // (written every odd line) output origins
+    glReadPixels([0..511, 6x128...6x128+255], PBO1) from back
+    glReadPixels([512+0..512+511, 6x128...6x128+255], PBO1+offset) from back
+    // now i have line origins and ends in vertex buffer, 
+    // the same information is stored in texture coordinates but swapped, 
+    // so every vertex knows the origin and the end 
+    // of the line vertex it belongs to (so every pixel knows too)
+    rebind PBO1 as a VBO1 and render lines using rayinspector into back
+    // batch of 256x256 lines is rendered 48 times for every vista map, ufff
+    glReadPixels([0..8x128, 0...6x128], PBO2) from back
+    // now i have hits in PBO2 [x,y] is address of original pixel in eye
+    rebind PBO2 as a VBO2 and render points using hitinspector into front
+    // area [512..512+255, 6x128...6x128+255]
+    ...
+  switch back to main context
+  glSwapBuffers();
+end loop
+                              </pre><br><b>Notes:</b><br>
+                              1. rendering vista maps: using render_to_depth, binding depth buffer
+                              and GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB for second
+                              depth test. Using static VBO for whole scene geometry (one glDrawArrays
+                              call).<br>
+                              2. Because of lack of MRT's on nvidia I render my scene two times from
+                              eye view. First render outputs ray origins, second outputs ray ends.
+                              Then I need to do 4 renders of line grid to interleave data for reading
+                              by PBO and binding as VBO for GL_LINES. I don't know better "readback"
+                              schema yet. Grid consist of 256 vertical lines long 256 pixels (spaced
+                              with 1px gap). Grid is stored in static VBO in the GPU. Interleaver
+                              uses just simple read from front buffer and does copy into back buffer.<br>
+                              3. PBO -&gt; VBO is done standard way. In case of lines I need to call
+                              glReadPixels two times (i need to feed texture coordinates with other
+                              line point for vertex). Line needs to know ray origin and direction for
+                              analytic ray-triangle intersection (in every fragment).<br>
+                              4. lines are rasterized by calling 48xglDrawArrays(GL_LINES,...)<br>
+                              5. points are rasterized by calling glDrawArrays(GL_POINTS,...)<br>
+                              all vertex and fragment programs are compiled.
+                              <br><br>
+                              ufff, I think that is enough for now.
+
+                              </td></tr><tr height="4"><td colspan="3"></td></tr><tr><td style="padding-left: 2px; padding-right: 2px;" width="80">10.05.2004</td><td style="padding-left: 2px;" width="100%"><b>Raytracer (primary ray, secondary reflection and refraction rays + shadow rays)</b></td><td style="padding-right: 4px;" align="right"><nobr></nobr></td></tr><tr><td class="sec_dotsh" style="padding-right: 4px;" colspan="2" height="1"></td></tr><tr><td></td><td style="padding-left: 2px; padding-right: 4px;" valign="top">Today,
+                              I have extended and bugfixed previous version of raycaster. Main
+                              concept stayed the same. I fixed some singular cases with shadow rays
+                              and debugged reflection code. Here is simple example of 2-level
+                              raytracer in BrookGPU.<br>
+                              Note: Unfortunatelly, I have reached HW limitations of nv30gl profile
+                              of BrookGPU (max textures per kernel). Now I'm running only CPU path.
+                              <br><br>
+                              Scene: 'Checker board with sphere', 1440 triangles, 2 lights, voxels 10x10x10, 4000 passes, resolution 512x512<br><a href="pub/checkersphere_reflection_scene.png"><img title="scene" src="pub/checkersphere_reflection_scene_t.png"></a><a href="pub/checkersphere_reflection.png"><img title="smooth" src="pub/checkersphere_reflection_t.png"></a>&nbsp;
+                              <a href="pub/checkersphere2_reflection_scene.png"><img title="scene" src="pub/checkersphere2_reflection_scene_t.png"></a><a href="pub/checkersphere2_reflection.png"><img title="smooth" src="pub/checkersphere2_reflection_t.png"></a><br><br>Next
+                              focus in 1): continue in implementation of full Purcell's raytracer
+                              using BrookGPU, fix remaining bugs, test refraction, test more levels</td></tr><tr height="4"><td colspan="3"></td></tr><tr><td style="padding-left: 2px; padding-right: 2px;" width="80">06.05.2004</td><td style="padding-left: 2px;" width="100%"><b>Raycaster + primary shadow rays</b></td><td style="padding-right: 4px;" align="right"><nobr></nobr></td></tr><tr><td class="sec_dotsh" style="padding-right: 4px;" colspan="2" height="1"></td></tr><tr><td></td><td style="padding-left: 2px; padding-right: 4px;" valign="top">Today,
+                              I have done working prototype of more advanced raycaster. Program is
+                              able to trace primary shadow rays. Multiple point ligths are supported.
+                              Current version is also prepared to be extended for secondary reflected
+                              and refracted rays.
+                              I simplified previous raycaster, I merged intersector_init and
+                              intersector_step kernels into one kernel.
+                              I introduced new kernel called dispatcher. This kernel is responsible
+                              for preparing new ray when previous ray is finished.
+                              Current version has following main loop schema:<br><pre>
+samplephases = NUMRAYS per pixel
+shadowphases = lights+1
+
+[ samplephases*shadowphases
+  traverser_init
+  [ 
+    [ 5x
+      traverser
+    ]
+    [ 5x
+      intersector    
+    ]
+  ]
+  shader // do blending
+  dispatcher
+]
+
+                              </pre>
+
+                              Scene: 'Triangle', 1 triangle, 2 lights, voxels 10x10x10, 450 passes, resolution 256x256<br><a href="pub/onetrish_scene.png"><img title="scene" src="pub/onetrish_scene_t.png"></a><a href="pub/onetrish_state1.png"><img title="state" src="pub/onetrish_state1_t.png"></a><a href="pub/onetrish_state2.png"><img title="state" src="pub/onetrish_state2_t.png"></a><a href="pub/onetrish_state3.png"><img title="state" src="pub/onetrish_state3_t.png"></a><a href="pub/onetrish_smooth.png"><img title="smooth" src="pub/onetrish_smooth_t.png"></a><br><br>
+                              Scene: 'Torus', 492 triangles, 2 lights, voxels 10x10x10, 1500 passes, resolution 256x256<br><a href="pub/torussh_scene.png"><img title="scene" src="pub/torussh_scene_t.png"></a><a href="pub/torussh_state1.png"><img title="state" src="pub/torussh_state1_t.png"></a><a href="pub/torussh_state2.png"><img title="state" src="pub/torussh_state2_t.png"></a><a href="pub/torussh_state3.png"><img title="state" src="pub/torussh_state3_t.png"></a><a href="pub/torussh_smooth.png"><img title="smooth" src="pub/torussh_smooth_t.png"></a><br><br>
+                              Scene: 'Torus', 492 triangles, 2 lights, voxels 10x10x10, 1500 passes, resolution 1024x1024<br><a href="pub/torussh_large.png"><img title="large" src="pub/torussh_large_t.png"></a><br>
+                              Next focus in 1): continue in implementation of full Purcell's
+                              raytracer using BrookGPU (reflected and refracted rays), fix some
+                              remaining issues with shadows</td></tr><tr height="4"><td colspan="3"></td></tr><tr><td style="padding-left: 2px; padding-right: 2px;" width="80">03.05.2004</td><td style="padding-left: 2px;" width="100%"><b>Raycaster implementation using <a href="http://graphics.stanford.edu/projects/brookgpu/">BrookGPU</a></b></td><td style="padding-right: 4px;" align="right"><nobr></nobr></td></tr><tr><td class="sec_dotsh" style="padding-right: 4px;" colspan="2" height="1"></td></tr><tr><td></td><td style="padding-left: 2px; padding-right: 4px;" valign="top">Two
+                              weeks ago I started to work on this project hard again (last decent
+                              work was done in January and then I had to stop mainly because of
+                              driver bugs).<br>
+                              I have quite good news here. I have working raycaster written using <a href="http://graphics.stanford.edu/projects/brookgpu/">BrookGPU</a>.
+                              At the moment only CPU path works correctly, I have some issues with
+                              nv30gl path. This is not so big problem, because I'm using Brook for
+                              fast prototyping of algortihms and for debugging purposes.<br><br>
+
+                              I have Purcell's raycaster running for simple scenes. This is NOT realtime at the moment.<br>
+                              Voxel grid is 10x10x10 (1000 voxels).
+                              Currently, I have 5 kernels: traverser_init, traverser_step, intersector_init, intersector_step, shader.
+                              Oracle is very simple: algorithm loops 5x traverser step + 5x intersector step. Last step is shading pass.
+                              Pixels can be shaded with three types of shading algorithms: SIMPLE, FLAT or SMOOTH.<br><br>
+
+                              Scene: 'Triangle', 1 triangle, 1 light, voxels 10x10x10, 250 passes, resolution 256x256<br><a href="pub/onetri_scene.png"><img title="scene" src="pub/onetri_scene_t.png"></a><a href="pub/onetri_state.png"><img title="state" src="pub/onetri_state_t.png"></a><a href="pub/onetri_simple.png"><img title="simple" src="pub/onetri_simple_t.png"></a><a href="pub/onetri_flat.png"><img title="flat" src="pub/onetri_flat_t.png"></a><a href="pub/onetri_smooth.png"><img title="smooth" src="pub/onetri_smooth_t.png"></a><br><br>
+                              Scene: 'Box', 12 triangles, 1 light, voxels 10x10x10, 250 passes, resolution 256x256<br><a href="pub/box_scene.png"><img title="scene" src="pub/box_scene_t.png"></a><a href="pub/box_state.png"><img title="state" src="pub/box_state_t.png"></a><a href="pub/box_simple.png"><img title="simple" src="pub/box_simple_t.png"></a><a href="pub/box_flat.png"><img title="flat" src="pub/box_flat_t.png"></a><a href="pub/box_smooth.png"><img title="smooth" src="pub/box_smooth_t.png"></a><br><br>
+                              Scene: 'Sphere', 960 triangles, 1 light, voxels 10x10x10, 400 passes, resolution 256x256<br><a href="pub/sphere_scene.png"><img title="scene" src="pub/sphere_scene_t.png"></a><a href="pub/sphere_state.png"><img title="state" src="pub/sphere_state_t.png"></a><a href="pub/sphere_simple.png"><img title="simple" src="pub/sphere_simple_t.png"></a><a href="pub/sphere_flat.png"><img title="flat" src="pub/sphere_flat_t.png"></a><a href="pub/sphere_smooth.png"><img title="smooth" src="pub/sphere_smooth_t.png"></a><br><br>
+                              Next focus in 1): implement full Purcell's raytracer using BrookGPU (shadow rays, reflected and refracted rays)</td></tr><tr height="4"><td colspan="3"></td></tr><tr><td style="padding-left: 2px; padding-right: 2px;" width="80">29.03.2004</td><td style="padding-left: 2px;" width="100%"><a target="_top" href="http://graphics.stanford.edu/papers/tpurcell_thesis/"><b>Thesis 'Ray Tracing on a Stream Processor' by Tim Purcell</b></a></td><td style="padding-right: 4px;" align="right"><nobr></nobr></td></tr><tr><td class="sec_dotsh" style="padding-right: 4px;" colspan="2" height="1"></td></tr><tr><td></td><td style="padding-left: 2px; padding-right: 4px;" valign="top">I was waiting for this wonderfull thesis, because there is a key information for my future research.<br>
+                              When I overcome implementation problems, I want to focus on:<br>
+                              1) fast implementation using <a href="http://graphics.stanford.edu/projects/brookgpu/">BrookGPU</a><br>
+                              2) fine Purcell's raytracer implementation on FX5950 using Cg1.2+OpenGL1.5 and fp30 profile (some work already done)<br>
+                              3) my raytracer using bounding volumes as accelerarion structure (and more)
+                              </td></tr><tr height="4"><td colspan="3"></td></tr><tr><td style="padding-left: 2px; padding-right: 2px;" width="80">02.02.2004</td><td style="padding-left: 2px;" width="100%"><a target="_top" href="http://wscg.zcu.cz/"><b>WSCG'2004</b></a></td><td style="padding-right: 4px;" align="right"><nobr></nobr></td></tr><tr><td class="sec_dotsh" style="padding-right: 4px;" colspan="2" height="1"></td></tr><tr><td></td><td style="padding-left: 2px; padding-right: 4px;" valign="top">I'm leaving for a week to <br>
+                              The 12-th International Conference in Central Europe on <br>
+                              Computer Graphics, Visualization and Computer Vision'2004<br><br>
+                              I hope I will meet there some GPU related topics.</td></tr><tr height="4"><td colspan="3"></td></tr><tr><td style="padding-left: 2px; padding-right: 2px;" width="80">19.01.2004</td><td style="padding-left: 2px;" width="100%"><a target="_top" href="http://www.gpgpu.org/forums/viewtopic.php?p=468"><b>First implementation problems :-/</b></a></td><td style="padding-right: 4px;" align="right"><nobr></nobr></td></tr><tr><td class="sec_dotsh" style="padding-right: 4px;" colspan="2" height="1"></td></tr><tr><td></td><td style="padding-left: 2px; padding-right: 4px;" valign="top">I
+                              started to implement Purcell's raytracer in the GPU as a reference
+                              implementation for my future research. I have choosen
+                              Cg1.1+OpenGL1.5+pf30 platform. I have written a simple framework for my
+                              project (wrappers dealing with fragment programs using Cg runtime,
+                              pbuffer class, pbuffer state machine, quads renderer etc.). I started
+                              to heavily use cgc.exe and Cg runtime for compiling, binding and
+                              running my program kernels. At the moment i'm not very familiar with
+                              fp30 assembler (NV_fragment_program), mainly because it has so poor
+                              documentation in the form of extension. There was a lot of try-it-again
+                              or do-it-another-way situations. I learned many new issues mainly about
+                              pbuffers, render_to_texture and NV_fragment_program extensions. Some of
+                              my implementaion problems are described <a href="http://www.gpgpu.org/forums/viewtopic.php?p=468">here</a>.<br><br>
+
+                              At this point I have working Ray Generator kernel and Grid Traverser kernel as described in Purcell's paper.<br>
+                              For traversing grid structure I used method described <a href="http://citeseer.nj.nec.com/amanatides87fast.html">here</a>.<br>
+                              I have also successfully tested ray-triangle intersection routine (described <a href="http://www.acm.org/jgt/papers/MollerTrumbore97/">here</a>).<br>
+                              I use <a href="http://www.cs.unc.edu/%7Ebaxter/projects/imdebug/">imdebug</a> for image debugging - a great tool !.
+                              <br><br>
+
+                              Implementation details:<br>
+                              I'm using double-buffered floating point buffers. I use
+                              render_to_texture with ping-pong scheme in buffer. Simple state machine
+                              tracks next output rectangle and binds last output rectangle as input
+                              texture for next pass. I avoid switching pbuffers, all work is done
+                              within single pbuffer and switching surfaces using glDrawBuffer
+                              function. At the moment I have ran into troubles with Cg runtime. Maybe
+                              speed expectations were higher, but this is my first try to implement
+                              complex GPU algorithm.<br><br>
+
+                              I have studied new papers. The interesting ones  I added into workspace (check papers/important folder).<br>
+                              I browsed nearly whole GPGPU forums looking for similar implementation solutions.<br></td></tr><tr height="4"><td colspan="3"></td></tr><tr><td style="padding-left: 2px; padding-right: 2px;" width="80">08.01.2004</td><td style="padding-left: 2px;" width="100%"><a target="_top" href="http://hildebrand.cz/?g=GFFX5950"><b>The "Day D"</b></a></td><td style="padding-right: 4px;" align="right"><nobr></nobr></td></tr><tr><td class="sec_dotsh" style="padding-right: 4px;" colspan="2" height="1"></td></tr><tr><td></td><td style="padding-left: 2px; padding-right: 4px;" valign="top">
+                              Till now, it was just a theory. From now it starts to be a real hardcoding :).<br>
+                              Yes, yes, I bought <a href="http://www.beyond3d.com/previews/nvidia/nv38/">GigaByte MAYA GV-N595U256V 256MB</a> for my Inferno research.
+                              From last time I did some work on reading papers and specifications. I
+                              have gained quite a deep knowlege about nVidia OpenGL extensions. I
+                              also browsed tons of web pages ;). I have also some positive reactions
+                              from the visitors of this site and GPGPU pages.<br></td></tr><tr height="4"><td colspan="3"></td></tr><tr><td style="padding-left: 2px; padding-right: 2px;" width="80">05.12.2003</td><td style="padding-left: 2px;" width="100%"><b>Site improvements and studying</b></td><td style="padding-right: 4px;" align="right"><nobr></nobr></td></tr><tr><td class="sec_dotsh" style="padding-right: 4px;" colspan="2" height="1"></td></tr><tr><td></td><td style="padding-left: 2px; padding-right: 4px;" valign="top">I did quite more work on Inferno last month in comparsion with last year ;-). Here is a brief report:<br>
+                              I have been snuffing on internet forums and around looking for some GPU related projects and info.<br>
+                              I found great site <a href="http://www.gpgpu.org/">www.gpgpu.org</a> (thanks to jezeq).<br><br><b>Papers, I have studied</b>:<br>
+                              OpenGL 2.0 specifications (overview first reading)<br>
+                              Photon Mapping on Programmable Graphics Hardware - awesome paper<br>
+                              Implementing Ray Casting in Tetrahedral Meshes with Programmable Graphics Hardware<br><br><b>The Inferno site changes</b>:<br>
+                              "Workspace" section opened - workspace is dedicated to files that i'm working with and are related to inferno project.<br>
+                              "Pros &amp; Cons" section opened - text dedicated to comparsion of raytracing pros and cons on GPUs.<br>
+                              Site statistics (not public).<br><br><b>Future tasks</b>:<br>
+                              "Research Focus" section on the site. At this point site wil be announced on gpgpu.org<br>
+                              pbuffer OpenGL extension<br>
+                              DirectX 9.0 features<br>
+                                </td></tr></tbody></table>                            
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5" class="bottom_row">
+              <table cellpading="0" border="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td style="padding-left: 2px;">
+                      <font color="#BBBBBB">Homepage of <a href=""><font color="#FFFFFF">Inferno Project</font></a>, best viewed in <a href="http://www.microsoft.com/ie"><font color="#FFFFFF">Internet Explorer</font></a> or <a href="http://mozilla.org/"><font color="#FFFFFF">Mozilla</font></a> browsers, min. resolution 800x600</font>, (c) Antonin Hildebrand 2004
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </center>
+  </body>
+</html>

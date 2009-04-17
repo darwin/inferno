@@ -1,0 +1,654 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>
+      The Inferno Project - research of realtime-ray tracing on programmable graphics cards (GPUs)
+    </title>
+    <meta name="description" content="The Inferno Project aims to research realtime ray tracing on programmable graphics cards (GPUs).">
+    <meta name="keywords" content="ray tracing, realtime ray tracing, GPU, programmable graphics hardware, demoscene, engine, rendering, inferno project">
+    <link rel="stylesheet" type="text/css" href="data/basic.css">
+    <style type="text/css">
+      p { padding-left: 8px; font-size: 9pt; }
+    </style>
+  </head>
+  <body topmargin="0" leftmargin="0" alink="#FFFFFF" bgcolor="#FFFFFF" link="#FFFFFF" marginheight="0" marginwidth="0" text="#FFFFFF" vlink="#FF3333">
+    <center>
+      <table class="main" align="center" border="0" bordercolor="#FFFFFF" cellpadding="0" cellspacing="0" height="100%" width="780">
+        <tbody>
+          <tr>
+            <td colspan="5" class="top_row">
+              <table cellpading="0" border="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td align="left">
+                      <font color="#FFFFFF"><b><a target="_top" href="http://www.opengl.org/"><font title="OpenGL news" class="ns">&nbsp;www.opengl.org&nbsp;</font></a>|<a target="_top" href="http://www.microsoft.com/directx/"><font title="Direct X homepage" class="ns">&nbsp;Direct X&nbsp;</font></a>|<a target="_top" href="http://www.sgi.com/software/opengl/"><font title="SGI OpenGL homepage" class="ns">&nbsp;SGI OpenGL&nbsp;</font></a>|<a target="_top" href="http://www.nvidia.com/developer"><font title="developers section at nvidia.com" class="ns">&nbsp;nVidia&nbsp;</font></a>|<a target="_top" href="http://www.ati.com/developer"><font title="developers section at ati.com" class="ns">&nbsp;ATI&nbsp;</font></a></b></font>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="logo_row" height="150" valign="top" width="780">
+              <table style="background-image: url(img/gfx.logo.png);" border="0" cellpadding="0" cellspacing="0" height="150" width="778">
+                <tbody>
+                  <tr>
+                    <td align="right" height="100%" valign="top"></td>
+                  </tr>
+                  <tr>
+                    <td align="right" valign="top">
+                      <a target="_top" title="Computer Graphics Group at MFF UK Prague" href="http://cgg.ms.mff.cuni.cz/"><img src="data/tip_002.png" border="0" height="57" width="52"></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right" valign="top">
+                      <a target="_top" title="Marshals Demogroup" href="http://www.marshals.cz/"><img src="data/tip.png" border="0" height="44" width="52"></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td class="left_column" height="100%" valign="top" width="140">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td class="sec_menu" valign="top">
+                      <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td class="sec_menu_title">
+                              INFERNO MENU
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sec_menu_inner">
+                              <table cellpadding="0" cellspacing="0" width="100%">
+                                <tbody>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens introduction description of the project" align="left" valign="top" width="100%">
+                                      <nobr><a href="/index.html"><b>Introduction</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens Pros&amp;Cons page" align="left" valign="top" width="100%">
+                                      <nobr><a href="/proscons.html"><b>Pros &amp; Cons</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens Research Focus page" align="left" valign="top" width="100%">
+                                      <nobr><a href="/research.html"><b>Research Focus</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens project log" align="left" valign="top" width="100%">
+                                      <nobr><a href="/log.html"><b>Project Log</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens related references and links" align="left" valign="top" width="100%">
+                                      <nobr><a href="/links.html"><b>Related Links</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="" align="left" valign="top" width="100%">
+                                      <nobr></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_cell" colspan="2" title="Opens RForce method description" align="left" valign="top" width="100%">
+                                      <nobr><a href="/rforce.html"><b>RForce Method</b></a></nobr>&nbsp;
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_menu_spacer" colspan="2" align="right" height="16" valign="bottom" width="100%">
+                                      &nbsp;
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td class="sec_menu" valign="top">
+                      <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td class="sec_menu_title">
+                              INFERNO FOCUS
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sec_menu_inner">
+                              <table cellpadding="0" cellspacing="0" width="100%">
+                                <tbody>
+                                  <tr>
+                                    <td class="plain" colspan="2" title="General Purpose Computation Using Graphics Hardware" align="left" valign="top" width="100%">
+                                      <a target="_blank" href="http://www.gpgpu.org/"><img class="plain" src="data/gfx_002.png" border="0" height="48" width="140"></a>
+                                    </td>
+                                  </tr>
+                                  <tr height="1">
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="plain" colspan="2" title="Cg Shaders - The next evolution of GPU programming" align="left" valign="top" width="100%">
+                                      <a target="_blank" href="http://www.cgshaders.org/"><img class="plain" src="data/gfx.png" border="0" height="48" width="140"></a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td class="sec_news" valign="top">
+                      <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td class="sec_news_title">
+                              INFERNO NEWS
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sec_news_inner">
+                              <table cellpadding="0" cellspacing="0" width="100%">
+                                <tbody>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>14.08.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>master thesis released<br>
+                                              RForce introduced<br>
+                                              NV38Box released<br>
+                                              BrookBox released<br>
+                                              project log updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>25.05.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>project log updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>10.05.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>project log updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>06.05.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>project log updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>03.05.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>project log updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="sec_news_tr">
+                                      <table class="sec_news_cell" border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td align="left" valign="top" width="100%">
+                                              <nobr><b>29.03.2004</b></nobr>
+                                            </td>
+                                            <td align="right" valign="top"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" style="padding-left: 12px;">
+                                              <font color="#A32301"><b>project log updated<br>
+                                              links updated</b></font>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="3" valign="bottom">
+                                      <table width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td align="right">
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td class="right_column" height="100%" valign="top" width="640">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td class="sec_content" valign="top">
+                      <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td class="sec_content_title">
+                              INFERNO RFORCE METHOD</td></tr><tr><td class="sec_content_inner"><table cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="content"><style>
+                                    p { padding-left: 8px; font-size: 8pt; }
+                                    .t { padding-left: 8px; font-size: 8pt; }
+                                  </style><b>This document aims to briefly describe method RForce used in NV38Box.</b><br>
+                              You can download <a href="http://dl.getdropbox.com/u/559047/thesiscd.zip">full master thesis</a> (Czech language).
+                              <br>I had some requests for text translation. I'm not able to translate full text but I can provide the main parts here.<br>
+                              This is a translation of the main part describing the RForce method and it's results.<br>
+                              <br><img src="img/intro.png"><br><br><b>Background</b><br>
+                              Maybe you have read Purcell's [1+3] or Carr's [2] papers on raytracing in GPU.<br>
+                              This method is based on some of their ideas but is&nbsp;slightly different in
+                              some cases.<br>
+                              This method was developed under Inferno project (<a href="">http://inferno.hildebrand.cz</a>).<br>
+                              We assume you know how ray tracing works and maybe you should understand<br>
+                              main concepts in papers [1] and [2] for better understanding of this method.<br><br>
+                              See some screenshots of input scenes:<br><a href="img/balls_bb.png"><img src="img/balls_bbt.png"></a>&nbsp;
+                              <a href="img/teapot_bb.png"><img src="img/teapot_bbt.png"></a>&nbsp;
+                              <a href="img/planets_bb.png"><img src="img/planets_bbt.png"></a>&nbsp;
+                              <a href="img/rotor_bb.png"><img src="img/rotor_bbt.png"></a>&nbsp;
+                              <a href="img/prism_bb.png"><img src="img/prism_bbt.png"></a>&nbsp;
+                              <br><br><b>Features of RForce method:</b><br>
+                              - dynamic GPU raytracer running in realtime for simple scenes and low
+                              resolutions<br>
+                              - scene = 16 triangular objects per 64 triangles (total up to 1024 triangles)<br>
+                              - using AABB as an acceleration structure<br>
+                              - per pixel shading for both primary and secondary rays<br>
+                              - no dynamic flow control as opposite to Purcell's method<br>
+                              - hybrid algorithm (primary rays = classic rasterization)<br>
+                              - nVidia only, NV38 path, NV40 path, brute force for comparison<br>
+                              - implementation performs only secondary reflection rays,but method is more flexible in general<br>
+                              - tested on WinXP, GeForce 5950 Ultra, ForceWare 60.xx<br>
+                              - slow for greater resolutions than 128x128 (but working)<br><br>
+                              See some screenshots of raytraced scenes:<br><a href="img/balls_rt.png"><img src="img/balls_rtt.png"></a>&nbsp;
+                              <a href="img/teapot_rt.png"><img src="img/teapot_rtt.png"></a>&nbsp;
+                              <a href="img/planets_rt.png"><img src="img/planets_rtt.png"></a>&nbsp;
+                              <a href="img/rotor_rt.png"><img src="img/rotor_rtt.png"></a>&nbsp;
+                              <a href="img/prism_rt.png"><img src="img/prism_rtt.png"></a>&nbsp;
+                              <br><br><b>What do we want ?</b><br>
+                              We want triangular scenes (no procedural one-shader with spheres&amp;planes tricks!).<br>
+                              We want to trace array of rays in the GPU.<br>
+                              We want to shade their hits in the GPU.<br>
+                              We want to display final picture in the&nbsp;GPU.<br>
+                              We want to do it effective even for dynamic scenes !<br><br><b>RForce algorithm in streaming model</b><br><img src="img/rforce_scheme.png"><br>
+                              Let's say we have to compute R rays for O objects each with T triangles.
+                              So whole scene has O*T triangles.<br><br>
+                              A core part of the algortihm are streaming units S-X-F. The unit S has stream of rays and
+                              stream of triangles on input. The unit S produces stream of all pairs triangle-ray ordered per rays.
+                              The unit X has stream of pairs on input and computes intersection between ray and triangle
+                              in it's kernel. The unit X produces stream of tested pairs. The unit F reduces chain of O*T pairs into one value.
+                              This value represents the first hit from all reduced pairs for given ray. This part of the machine is very similar
+                              to Carr's Ray Engine. The only difference is that we compute first hit using reduction and Carr is using depth test
+                              (we need depth test for computation mask purpose - see later).<br><br>
+                              Well, now let's add optimization using bounding volumes. We use AABBs for marking pairs which needen't be computed.
+                              This mask is produced in unit B using AABB-ray intersection kernel as shown on picture.
+                              The unit S has another task to prepare computation mask on produced pairs.<br><br>
+                              Ok, now let's talk about dynamic scene handling. A scene geometry is stored in local object coordinates.
+                              We have set of transformation matrixes which transform objects into world-space. Let's add new unit
+                              T which does the transformation from local-space to world-space and outputs results into stream of triangles (O*T).
+                              We also need to build AABBs in world space, because all intersections are computed in world-spaces.
+                              So we add unit O which gets transformed triangles on input and computes AABBs as output.<br><br>
+                              In case we want whole raytracer on GPU side, the last step is to add ray-generation unit and shading unit.
+                              The unit G is ray-generation unit which produces stream of rays in world-space for unit B and unit S.
+                              The unit C is shading unit working with nearest hits from unit F. The unit C produces colors to be blended
+                              into final image and/or loops the computation for new rays.
+                              <br><br>
+                              The blue-part of the algorithm can be looped for computation different sets of rays
+                              (primary, secondary reflection, secondary refraction, shadow rays, etc.). It depends on loop number
+                              what should be generated in unit G and what are the inputs for this generation. For example to generate
+                              secondary rays, the unit G needs to know primary hits.
+                              <br><br><b>Data structures</b><br><img src="img/bscheme.png"><br>
+                              We have scene with 16 objects (4x4) each consists up to 64 triangles (8x8). So the whole scene has up to 1024 triangles (32x32).
+                              It is possible to customize these numbers, but we will talk only about these numbers to keep the description simple.<br>
+                              We have triangle related data like positions, normals, colors, texture
+                              coordinates, and so on.
+                              We store triangle related data in texture using so called "block
+                              scheme". This is simple layout to allow easy reduction
+                              from triangles level to objects level and possibly to last level of one
+                              texel. See the picture. You can see one whole block of data
+                              and discover sixteen 8x8 sub-blocks representing objects. These
+                              sub-blocks can be reduced to objects level in three steps with
+                              reduction kernel 2x2 -&gt; 1x1.
+                              <br><br>
+                              In every such a&nbsp;picture we are able to store per triangle information in four 32-bit floating point
+                              components (32-bit floating point RGBA format for texel).
+                              <br><br>
+                              Before we start description of the algorithm in the GPU,
+                              we want to introduce schematic view of GPU pipeline.
+                              Some next pictures are derived from this scheme.
+                              <img src="img/pipeline.png"><br><br><b>RForce algorithm in GPU</b><br>
+                              preprocess: build static data structures (textures and VBOs)<br>
+                              for every frame:<br>
+                              1. transform scene geometry and store results into set of textures (T)<br>
+                              2. compute bounding boxes using transformed geometry (O)<br>
+                              3. render primary rays using classic scene rasterization (with custom shading)<br>
+                              ---<br>
+                              4. generate rays (G) (secondary reflection, refractions, shadow rays, whatever you want)<br>
+                              5. prepare computation mask (B)<br>
+                              6. intersect rays with triangles using computation mask (S-X)<br>
+                              7. reduce hits (F)<br>
+                              8. shade rays (C)<br>
+                              9. blend results to main image (according to rays contributions)<br>
+                              ---<br>
+                              10. display final image<br><br>
+                              Note: Steps 4-9 can be looped more times with differently generated rays.
+                              Contribution is blended to the framebuffer after every loop.
+                              Current implementation does only one loop generating secondary reflection rays.<br><br>
+                              See steps in pictures:<br><a href="img/example-datastructures.png"><img src="img/texample-datastructures.png"></a>&nbsp;
+                              <a href="img/example-primary.png"><img src="img/texample-primary.png"></a>&nbsp;
+                              <a href="img/example-raystart.png"><img src="img/texample-raystart.png"></a>&nbsp;
+                              <a href="img/example-rayend.png"><img src="img/texample-rayend.png"></a>&nbsp;
+                              <a href="img/example-mask.png"><img src="img/texample-mask.png"></a>&nbsp;
+                              <a href="img/example-workspace.png"><img src="img/texample-workspace.png"></a>&nbsp;
+                              <a href="img/example-hitinfos.png"><img src="img/texample-hitinfos.png"></a>&nbsp;
+                              <a href="img/example-contribution.png"><img src="img/texample-contribution.png"></a>&nbsp;
+                              <a href="img/example-final.png"><img src="img/texample-final.png"></a>&nbsp;
+                              <br>
+                              Legend (from left):<br>
+                              1. data structures generated in steps 1 and 2<br>
+                              2. primary rays from step 3<br>
+                              3. rays' starts from step 4<br>
+                              4. rays' ends from step 4<br>
+                              5. computation mask for accelerating raytracing from step 5<br>
+                              6. intersecting space (huge buffer - this is only a part of it) - yellow points are incomming hits from step 6<br>
+                              7. reduced intersecting space from step 7 (all segments) - reduction = find best hit per ray <br>
+                              8. shaded hits = contribution to the final image from step 8<br>
+                              9. final image composited from 3 and 9<br><br><br><b>Preprocess</b><br>
+                              The scene geometry is sent into GPU many times. That is why we create one interleaved
+                              static VBO with this data and upload it to the GPU memory once.
+                              The structure of the "scene VBO" is following:<br>
+                              - Vertex position in local coordinates [x,y,z].<br>
+                              - Vertex normal in local coordinates [x,y,z].<br>
+                              - Triangle material (repeated 3x) [mat1,mat2,mat3,mat4].<br>
+                              - Vertex texture coordinates [tu,tv].<br>
+                              - Triangle color (repeated 3x) [r,g,b,vertex counter].<br>
+                              - Precomputed custom optimization data [o1,o2,o3,o4].<br>
+                              The data is specified in 32-bit floating point precision. That results into 80byte structure for each vertex.
+                              We use gl*Pointer to specify this interleaved data into OpenGL for our computations.
+                              <br><br>
+                              We also store these static scene textures in block scheme:<br>
+                              - face colors: [r,g,b,packed(mat1, mat2)]<br>
+                              - material and uv: [packed(u1v1), packed(u2v2), packed(u3v3), packed(mat1,mat2)]<br><br>
+                              mat1 = material coefficient<br>
+                              mat2 = reflection coefficient<br>
+                              mat3 = refraction coefficient (unused)<br>
+                              mat4 = eta for refraction (unused)<br><br>
+                              uv = vertex texture coordinates into image texture map.<br>
+                              For simplicity we have baked all objects textures into one big texture.<br><br>
+                              packed means using pack_2half (see Cg manual).<br><br><b>1. Transform scene geometry</b><br><img src="img/rf_transformation.png"><br>
+                              Neat trick:
+                              <br>
+                              Use vertex engine to do the transformation of positions and normals.<br>
+                              But do not rasterize primitives =&gt; store transformed data into texture
+                              using block structure.<br><br>
+                              For positions:<br>
+                              Send scene into pipeline as GL_POINTS with size 1 pixel (use static scene VBO)<br>
+                              Vertex program transforms vertex position into world space as normally would<br>
+                              BUT writes it as texture coordinates for fragment program.<br>
+                              AND writes raster position according to block structure into output fragment position
+                              INSTEAD OF real position.
+                              <br>
+                              Fragment program simply stores incomming value.<br><br>
+                              For normals:<br>
+                              Same trick, but transform normal into world space.<br><br>
+                              Result: we have 3+3 textures using block structure.<br>
+                              First three are transformed positions for vertices A,B and C respectively.<br>
+                              Second three are transformed normals for vertices A,B and C respectively.<br><br><b>2. Compute bounding boxes</b><br><img src="img/rf_aabbs.png"><br>
+                              We have 3 textures with transformed world positions from step 1.<br>
+                              Perform reduction steps on these textures to get minimum and maximum
+                              coordinates for every sub-block (object). Sub-block is 8x8 so we need
+                              3 reduction passes. And one more extra pass for merging results from all three maps.<br><br>
+                              Fragment program simply compares coordinates and writes min or max to the output.
+                              You can see pbuffer ping-pong algorithm on the picture.
+                              <br><br>
+                              Result: We get two textures holding min and max values for every object (=we
+                              have AABBs computed on the GPU).
+                              This texture is using "reduced block structure to objects level",
+                              because sub-blocks are reduced to one pixel.<br><br><b>3. Render primary rays</b><br><img src="img/rf_primary.png"><br>
+                              Use classic OpenGL with custom shading (per pixel lighting).<br>
+                              Use static scene VBO. Nothing special here. We are rendering into 512x512 buffer.<br><br><b>4. Generate rays</b><br><img src="img/rf_raysgen.png"><br>
+                              We are raytracing in resolution 128x128 (or others).<br>
+                              We need to generate
+                              <br>
+                              128x128 buffer with rays' START positions and
+                              <br>
+                              128x128 buffer with rays' END position.<br><br>
+                              We render scene two times (again using static scene VBO).<br>
+                              1st time use shader to generate rays' STARTS<br>
+                              2nd time use shader to generate rays' ENDS (here takes place reflection formula)<br><br>
+                              Results: we get two buffers with rays definition for next steps.
+                              <br><br><b>5. Prepare computation mask</b><br><img src="img/rf_mask.png"><br>
+                              One pixel represents one pair ray-object. We have 128x128 rays and 4x4 objects per ray.
+                              There is executed fragment program for every pixel in buffer 512x512 rendering one quad.
+                              Fragment program computes intersection between given object's AABB and ray.<br><br>
+                              Result: 512x512 buffer with answers if there is hit or not.
+                              This buffer can be used as computation mask for ray-triangle intersections.
+                              <br><br><b>6. Intersect rays with triangles using computation mask</b><br><img src="img/rf_hits.png"><br>
+                              How to trace ?
+                              <br>
+                              One pixel represents one ray-triangle pair.
+                              We have 128x128 rays and 32x32 triangles per ray.
+                              There should be executed fragment program for every pixel in buffer 4096x4096 rendering one quad.
+                              Such a 32-bit floating point buffer does not fit into GPU memory.
+                              So we trace per partes (one part is called "segment").<br>
+                              More on this in part "Segmetnation".
+                              <br><br><b>7. Reduce hits</b><br>
+                              Rays are distributed in buffer using block scheme.
+                              We need to reduce every block to one texel to get first hit.
+                              We do 5x reduction with hit time comparison. We use ping-pong algorithm in one two-surface pbuffer.
+                              <br><br>
+                              How to speed this up with computation mask ?<br>
+                              More in part "Raytracing acceleration".<br><br><b>8. Shade rays</b><br><img src="img/rf_shading.png"><br>
+                              Incomming hits (with their info) are used for shading.<br>
+                              This shader is quite complicated (doing per-pixel shading of secondary
+                              reflected points with two point lights)<br>
+                              Scene data structures prepared in textures are used.
+                              Result buffer is 128x128 and contains contribution colors for shaded rays.
+                              Contribution weight is stored in alpha channel.<br><br><b>9. Blend results into main image</b><br>
+                              Shaded image from previous step represents contribution of actual group of rays.<br>
+                              Contribution of every pixel is stored in alpha channel.<br>
+                              We use blending to add this contribution to the final imge using alpha.<br>
+                              We did raytracing in lower resolution (128x128) than is final image resolution (512x512),
+                              So, we draw one quad 512x512 into final image using texture mapping with texture stretching and filtering.<br><br><b>10. Display final image</b><br>
+                              We did accumulation of all contributions into BACK buffer of the main context.<br>
+                              We do just glSwapBuffers() :-)<br><br><hr><b>Segmentation</b><br>
+                              Because there is not enough GPU memory to do ray-triangle intersections in one go in step 6,<br>
+                              we need to trace per partes. These blocks are called segments and correspond<br>
+                              to tiles of final image. Tiling is dependent on how much memory is available<br>
+                              and what resolution do we ray trace.<br><br>
+                              Because we are producing tiles from left to right, from top to bottom.<br>
+                              We can move over the buffer without destroying previous data.<br>
+                              At the time there is only one tile in progress (occupies buffer).<br>
+                              But previous are there in reduced form.<br><br><b>Raytracing acceleration</b><br>
+                              We use method called "computation mask". It is not needed to intersect
+                              all ray-triangle pairs. That is why we have built bounding boxes.
+                              These tests are stored in buffer 512x512 from step 5 and this buffer is used as computation
+                              mask.<br><br>
+                              How to reject fragments in step 6 ?<br>
+                              This method differs between NV38 and NV40.
+                              We use early-z functionality available on these GPUs.<br><br>
+                              We have implemented three methods:<br>
+                              1. brute force - no mask is used at all<br>
+                              2. NV38 - mask must be read into PBO, then rendered as GL_POINTS using PBO rebound as VBO<br>
+                              3. NV40 - mask is produced using one-quad fragment program with discard operation with depth writing<br><br>
+                              See detailed code reference for more info.<br><hr><b>Results:</b><br><br><a href="img/balls_rt.png"><img src="img/balls_rtt.png"></a>&nbsp;
+                              <a href="img/teapot_rt.png"><img src="img/teapot_rtt.png"></a>&nbsp;
+                              <a href="img/planets_rt.png"><img src="img/planets_rtt.png"></a>&nbsp;
+                              <a href="img/rotor_rt.png"><img src="img/rotor_rtt.png"></a>&nbsp;
+                              <a href="img/prism_rt.png"><img src="img/prism_rtt.png"></a>&nbsp;
+                              <br><br>
+                              We created 5 scenes:<br>
+                              - Balls: 16 objects, 1024 triangles.<br>
+                              - Teapot: 15 objects, 578 triangles.<br>
+                              - Planets: 13 objects, 736 triangles.<br>
+                              - Rotor: 11 objects, 518 triangles.<br>
+                              - Prism: 2 objekts, 18 triangles.<br><br>
+                              We measured 4 resolutions:<br>
+                              - 64 x 64 pixels.<br>
+                              - 128 x 128 pixels.<br>
+                              - 256 x 256 pixels.<br>
+                              - 512 x 512 pixels.<br><br>
+                              We included 5 following modifications of base algorithm:<br>
+                              - Scheme A: classic rasteriazation of primary picture (step 4 only).<br>
+                              - Scheme B: Scheme A and steps 1+2.<br>
+                              - Scheme C: RForce without computation mask (brute force).<br>
+                              - Scheme D: RForce with NV38 optimization.<br>
+                              - Scheme E: RForce with NV40 optimization.<br><br>
+                              We tested 2 following hardware configurations:<br>
+                              - NVIDIA GeForce 5950 Ultra, Athlon XP 2400+, nForce2, 512MB RAM, FW62.20.<br>
+                              - NVIDIA GeForce 6800 Ultra (Quadro FX 4000), Pentium 4 2.80 GHz, Intel 875, 1GB RAM, FW61.77.<br><br>
+                              Results for FX5950:
+                              <img src="img/results1.png"><br><br>
+                              Results for Q4000:
+                              <img src="img/results2.png"><br><font size="1">I would like to thank Christian Lessing a Jeffrey Sing Kwong for providing us with the Q4000 results.</font><br><br>
+                              Graph shows results for schemes C,D,E (click for detailed picture):
+                              <a href="img/graphfull.png"><img src="img/graph.png"></a><br><br>
+                              Graph conclusions:<br>
+                              - Q4000 is two times faster than FX5950 in brute force computation.<br>
+                              - FX5950 achieved 4x speedup using NV38 path in scheme D.<br>
+                              - Q4000 has disabled early-Z ? Neither scheme D nor scheme E are optimized with computation mask.<br><br>
+                              We can estimate number of ray-triangle intersectins per second and number of computed rays per second
+                              for FX5950.<br><br>
+                              Scheme C is running ~5FPS in 64x64. So we do 64x64*32x32*5 =&gt; 20M ray-triangle tests per second.
+                              But there is overhead of shading and other kernels. We also use plain Cg output which can be further optimised.
+                              <br><br>
+                              Scheme C is running ~5FPS in 64x64. So we are doing 64x64*5 =&gt; 20K rays computed per second.
+                              If we take scheme D which is running ~20FPS we get 80K rays computed per second.
+                              <br><br>
+                              Here is comparison table with related work by Purcell, Carr and Wald:<br><img src="pub/comparison.png"><hr><b>Conclusion:</b><br>
+                              1. It is possible to implement full raytracer on GPU side without dynamic flow control (for dynamic scenes).<br>
+                              2. Our raytracer is able to run at interiactive rates only for trivial scenes (1024 triangles) and small resolutions (128x128).<br>
+                              3. Compared in performace is our implementation/method weaker than Purcell's and Carr's.
+                              We did not take too much care for kernel assembly optimizations.
+                              At least in ray-triangle intersection rate we should be able to achieve Carr's values with more attention, because
+                              core part of the RForce raytracer is just modified Ray Engine.<br><br>
+                              We provide our full implementation to the public. <br>
+                              </td></tr><tr><td class="content"><hr class="simplehr"><b>References:</b><br><table style="font-family: Tahoma;" class="simple"><tbody><tr><td valign="top">[1]</td><td valign="top">T. J. Purcell, I. Buck, W. R. Mark, and P. Hanrahan. Ray Tracing on
+                              Programmable Graphics Hardware. In to appear in Proc. SIGGRAPH, 2002.</td></tr><tr><td valign="top">[2]</td><td valign="top"> Nathan A. Carr, Jesse D. Hall and John C. Hart, The Ray Engine,
+                              UIUCDCS-R-2002-2269 March 2002</td></tr><tr><td valign="top">[3]</td><td valign="top"> Timothy J. Purcell, Ray Tracing on a Stream Processor, Ph.D. dissertation,
+                              Stanford University, March 2004.</td></tr><tr><td valign="top">[4]</td><td valign="top"> I. Wald, C. Benthin, A. Dietrich and P. Slusallek. Interactive
+                              Distributed Ray Tracing on Commodity PC Clusters State of the
+                              Art and Practical Applications. Lecture Notes on Computer Science,
+                              2790:499 508, 2003. (Proceedings of EuroPar 2003)
+                              </td></tr></tbody></table>                            </td></tr></tbody></table>                            
+                              
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5" class="bottom_row">
+              <table cellpading="0" border="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td style="padding-left: 2px;">
+                      <font color="#BBBBBB">Homepage of <a href=""><font color="#FFFFFF">Inferno Project</font></a>, best viewed in <a href="http://www.microsoft.com/ie"><font color="#FFFFFF">Internet Explorer</font></a> or <a href="http://mozilla.org/"><font color="#FFFFFF">Mozilla</font></a> browsers, min. resolution 800x600</font>, (c) Antonin Hildebrand 2004
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </center>
+  </body>
+</html>
